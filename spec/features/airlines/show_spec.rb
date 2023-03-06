@@ -16,7 +16,13 @@ RSpec.describe 'Airlines Show Page', type: :feature do
       @passenger_3 = Passenger.create!(name: "Sandy Smith", age: 45)
       @passenger_4 = Passenger.create!(name: "Sally Smith", age: 15)
       @passenger_5 = Passenger.create!(name: "Tom Smith", age: 25)
-      @passenger_6 = Passenger.create!(name: "Sandy Jones", age: 3)
+      @passenger_6 = Passenger.create!(name: "Sandy Jones", age: 4)
+      @passenger_7 = Passenger.create!(name: "Tim Jonse", age: 27)
+      @passenger_8 = Passenger.create!(name: "Jon Timnse", age: 66)
+      FlightPassenger.create!(flight: @flight_4, passenger: @passenger_8)
+      FlightPassenger.create!(flight: @flight_4, passenger: @passenger_7)
+      FlightPassenger.create!(flight: @flight_6, passenger: @passenger_5)
+      FlightPassenger.create!(flight: @flight_6, passenger: @passenger_8)
       FlightPassenger.create!(flight: @flight_1, passenger: @passenger_1)
       FlightPassenger.create!(flight: @flight_1, passenger: @passenger_2)
       FlightPassenger.create!(flight: @flight_2, passenger: @passenger_2)
@@ -29,6 +35,7 @@ RSpec.describe 'Airlines Show Page', type: :feature do
       FlightPassenger.create!(flight: @flight_5, passenger: @passenger_6)
       FlightPassenger.create!(flight: @flight_6, passenger: @passenger_4)
       FlightPassenger.create!(flight: @flight_6, passenger: @passenger_6)
+      FlightPassenger.create!(flight: @flight_1, passenger: @passenger_5)
       visit airline_path(@airline_2)
     end
     describe 'When I visit an airlines show page' do
@@ -51,6 +58,26 @@ RSpec.describe 'Airlines Show Page', type: :feature do
           expect(page).to have_no_content(@passenger_1.age)
           expect(page).to have_no_content(@passenger_2.age)
           expect(page).to have_no_content(@passenger_3.age)
+        end
+      end
+
+      describe 'When I visit an airlines show page' do
+        it "Then I see that the list of adult passengers is sorted
+        by the number of flights each passenger has taken on the airline from most to least" do
+         
+          within ".unique-adult-passengers" do
+            expect(@passenger_5.name).to appear_before(@passenger_7.name)
+            expect(@passenger_5.name).to appear_before(@passenger_8.name)
+            expect(@passenger_8.name).to appear_before(@passenger_7.name)
+            expect(@passenger_7.name).to_not appear_before(@passenger_5.name)
+            expect(@passenger_8.name).to_not appear_before(@passenger_5.name)
+            expect(@passenger_7.name).to_not appear_before(@passenger_8.name)
+          end
+          within "#passenger_info-#{@passenger_5.id}" do
+            expect(page).to have_content("Name: #{@passenger_5.name}")
+            expect(page).to have_content("Age: #{@passenger_5.age}")
+            expect(page).to have_content("Flight Count: 3")
+          end
         end
       end
     end

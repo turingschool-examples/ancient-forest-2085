@@ -31,10 +31,16 @@ RSpec.describe Airline, type: :model do
       FlightPassenger.create!(flight: @flight_5, passenger: @passenger_5)
       FlightPassenger.create!(flight: @flight_5, passenger: @passenger_6)
       FlightPassenger.create!(flight: @flight_1, passenger: @passenger_4)
+      FlightPassenger.create!(flight: @flight_5, passenger: @passenger_1)
+      FlightPassenger.create!(flight: @flight_5, passenger: @passenger_3)
+      FlightPassenger.create!(flight: @flight_4, passenger: @passenger_1)
     end
-    it 'can list unique passengers' do
-      expect(@airline.unique_passengers).to eq([@passenger_1, @passenger_2, @passenger_3, @passenger_5])
+    it 'can list #unique_passengers' do
+      expect(@airline.unique_passengers.sort).to eq([@passenger_1, @passenger_2, @passenger_3, @passenger_5].sort)
+    end
+
+    it 'can sort #unique_passengers by number of flights' do
+      expect(@airline.passengers_sorted_by_flights).to eq([@passenger_1, @passenger_3, @passenger_2, @passenger_5])
     end
   end 
-
 end

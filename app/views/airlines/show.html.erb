@@ -1,11 +1,14 @@
 <h1><%= @airline.name%>'s Information Page </h1>
 <br>
 <div class ="unique-adult-passengers">
-<h2>Unique Adult Passenger Information</h2>
-<ul>
-<% @passengers.each do |p|%>
-  <li>Name: <%= p.name %></li>
-  <li>Age: <%= p.age %></li>
-<% end %>
-</ul>
+  <h2>Unique Adult Passenger Information</h2>
+  <ul>
+    <% @passengers.each do |p|%>
+    <div id='passenger_info-<%=p.id%>'>
+      <li>Name: <%= p.name %></li>
+      <li>Age: <%= p.age %></li>
+      <li>Flight Count: <%= p.flight_count%></li>
+      <% end %>
+    </div>
+  </ul>
 </div>
