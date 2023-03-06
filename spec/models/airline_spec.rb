@@ -9,7 +9,7 @@ RSpec.describe Airline, type: :model do
   describe 'instance methods' do
     it 'reutns a list of unique passengers' do
       load_test_data
-      expect(@southwest.distinct_passengers).to eq([@passenger1, @passenger2, @passenger3, @passenger4, @passenger5])
+      expect(@southwest.distinct_adult_passengers).to eq([@passenger2, @passenger4])
     end
   end
 end
