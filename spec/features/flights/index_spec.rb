@@ -12,7 +12,7 @@ RSpec.describe Flight, type: :feature do
 
     let!(:bob) { Passenger.create!(name: "Bob", age: 34) }
     let!(:rob) { Passenger.create!(name: "Rob", age: 9) }
-    let!(:sara) { Passenger.create!(name: "Sarah", age: 29) }
+    let!(:sara) { Passenger.create!(name: "Sara", age: 29) }
     let!(:rachel) { Passenger.create!(name: "Rachel", age: 15) }
     let!(:gina) { Passenger.create!(name: "Gina", age: 36) }
 
@@ -28,8 +28,36 @@ RSpec.describe Flight, type: :feature do
 
     describe 'As a visitor' do 
       context 'When I visit flights index' do 
-        it 'I see a lis t of each flight number' do
-          
+        it 'I see a list of each flight number' do
+          expect(page).to have_content("Flight Number: 343")
+          expect(page).to have_content("Flight Number: 336")
+          expect(page).to have_content("Flight Number: 3276")
+          expect(page).to have_content("Flight Number: 5542")
+        end
+
+        it "And next to each flight number I see the name of the Airline of that flight" do
+          expect(page).to have_content("343 | Airline: SouthWest")
+          expect(page).to have_content("336 | Airline: SouthWest")
+          expect(page).to have_content("3276 | Airline: SouthWest")
+          expect(page).to have_content("5542 | Airline: United")
+        end
+
+        it "And under each flight number I see the names of all that flight's passengers" do
+          within "div#flight-#{flight1.id}" do
+            expect(page).to have_content("Bob Rob")
+          end
+
+          within "div#flight-#{flight2.id}" do
+            expect(page).to have_content("Sara")
+          end
+
+          within "div#flight-#{flight3.id}" do
+            expect(page).to have_content("Rachel")
+          end
+
+          within "div#flight-#{flight4.id}" do
+            expect(page).to have_content("Gina")
+          end
         end
       end
     end
