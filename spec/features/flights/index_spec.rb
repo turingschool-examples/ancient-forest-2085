@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Flights Index Page' do
+RSpec.describe 'Flights Index Page', type: :feature do
 
   before :each do
     @airline1 = Airline.create!(name: "Frontier")
@@ -66,6 +66,7 @@ RSpec.describe 'Flights Index Page' do
     visit flights_path
 
     within "#flight_#{@flight1.id}" do
+      expect(page).to have_content("#{@passenger1.name}")
       click_link "Remove #{@passenger1.name}"
     end
 

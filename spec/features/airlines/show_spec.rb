@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Flight Show Page' do
+RSpec.describe 'Flight Show Page', type: :feature do
 
   before :each do
     @airline1 = Airline.create!(name: "Frontier")
@@ -37,7 +37,7 @@ RSpec.describe 'Flight Show Page' do
       expect(page).to have_content(@passenger5.name).once
       expect(page).to have_content(@passenger6.name).once
     end
-
+    
     expect(page).to_not have_content(@passenger3.name)
     expect(page).to_not have_content(@passenger4.name)
     expect(page).to_not have_content(@passenger7.name)
