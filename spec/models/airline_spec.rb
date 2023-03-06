@@ -41,7 +41,7 @@ RSpec.describe Airline, type: :model do
     end
 
     it "can find distinct passengers THAT ARE 18 or ABOVE" do
-      expect(@airline_1.distinct_passengers).to eq([@passenger_1, @passenger_2, @passenger_3])
+      expect(@airline_1.distinct_adult_passengers).to eq([@passenger_1, @passenger_2, @passenger_3])
     end
   end
 end
