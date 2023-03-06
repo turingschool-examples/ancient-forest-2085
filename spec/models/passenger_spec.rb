@@ -33,8 +33,8 @@ RSpec.describe Passenger, type: :model do
         all_frontier_passengers = [@andre, @diana, @joe]
         expected_passengers = [@andre, @diana]
 
-        expect(Passenger.adult_passengers(@frontier)).to match_array(expected_passengers)
         expect(Passenger.adult_passengers(@frontier)).to_not match_array(all_frontier_passengers)
+        expect(Passenger.adult_passengers(@frontier)).to match_array(expected_passengers)
       end
     end
   end

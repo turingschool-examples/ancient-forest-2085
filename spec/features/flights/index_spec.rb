@@ -26,30 +26,38 @@ RSpec.describe 'Flights Index' do
       context "When I visit the flights index page" do
         it "I see a list of all flight numbers
           And next to each flight number I see the name of the Airline of that flight
-          And under each flight number I see the names of all that flight's passengers" do
-          
-          expect(page).to have_content("Flight: 1727")
-          expect(page).to have_content("Flight: 1992")
-          expect(page).to have_content("Flight: 2022")
+          And under each flight number I see the names of all that flight's passengers" do          
           
           within("##{@den.id}") do
+            expect(page).to have_content("Flight: 1727")
             expect(page).to have_content("Frontier Airlines")
             expect(page).to have_content("Passengers:")
             expect(page).to have_content("Joe Smith")
             expect(page).to have_content("Diana Smith")
-          end
 
+            expect(page).to_not have_content("Flight: 1992")
+            expect(page).to_not have_content("Flight: 2022")
+          end
+          
           within("##{@hou.id}") do
+            expect(page).to have_content("Flight: 1992")
             expect(page).to have_content("Frontier Airlines")
             expect(page).to have_content("Passengers:")
             expect(page).to have_content("Andre D'lau")
+
+            expect(page).to_not have_content("Flight: 1727")
+            expect(page).to_not have_content("Flight: 2022")
           end
-
-
+          
+          
           within("##{@nyc.id}") do
+            expect(page).to have_content("Flight: 2022")
             expect(page).to have_content("Delta Airlines")
             expect(page).to have_content("Passengers:")
             expect(page).to have_content("LeVar Burton")
+
+            expect(page).to_not have_content("Flight: 1992")
+            expect(page).to_not have_content("Flight: 1727")
           end
         end
       end
@@ -65,6 +73,14 @@ RSpec.describe 'Flights Index' do
           And I no longer see that passenger listed under that flight,
           And I still see the passenger listed under the other flights they were assigned to" do
           
+          within("##{@hou.id}") do
+            expect(page).to have_button("Remove Andre D'lau")
+          end
+          
+          within("##{@nyc.id}") do
+            expect(page).to have_button("Remove LeVar Burton")
+          end         
+          
           within("##{@den.id}") do
             expect(page).to have_button("Remove Joe Smith")
             expect(page).to have_button("Remove Diana Smith")
@@ -74,15 +90,6 @@ RSpec.describe 'Flights Index' do
           end
 
           expect(page).to_not have_content("Diana Smith")
-
-          within("##{@hou.id}") do
-            expect(page).to have_button("Remove Andre D'lau")
-          end
-
-
-          within("##{@nyc.id}") do
-            expect(page).to have_button("Remove LeVar Burton")
-          end
         end
       end
     end
