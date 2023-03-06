@@ -4,7 +4,7 @@ RSpec.describe 'Airlines Show Page' do
   describe 'as a visitor to the airlines show page' do
 
     let!(:airline_1) {Airline.create!(name: "Frontier")}
-    # let!(:airline_2) {Airline.create!(name: "Southwest")}
+    let!(:airline_2) {Airline.create!(name: "Southwest")}
     
     let!(:flight_1) {Flight.create!(number: "123", date: "01/01/2020", departure_city: "Denver", arrival_city: "New York", airline_id: airline_1.id)}
     let!(:flight_2) {Flight.create!(number: "456", date: "01/01/2020", departure_city: "Denver", arrival_city: "Philadelphia", airline_id: airline_1.id)}
@@ -32,6 +32,10 @@ RSpec.describe 'Airlines Show Page' do
       visit "/airlines/#{airline_1.id}"
 
       expect(page).to have_content("Passengers on #{airline_1.name}")
+      expect(page).to have_content("Bob", count: 1)
+      expect(page).to have_content("Sally", count: 1)
+      expect(page).to have_content("Joe", count: 1)
+      expect(page).to_not have_content("Timmy")
     end
   end
 end
