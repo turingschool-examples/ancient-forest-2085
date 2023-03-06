@@ -4,7 +4,10 @@
 <div id="airline_adult_passengers">
   <ul>
     <% @airline.unique_adult_passengers.each do |adult_passenger| %>
-      <li><%= adult_passenger.name %></li>
+      <li>
+        <%= adult_passenger.name %>, Number of Flights:
+        <%= adult_passenger.num_flights %>
+      </li>
     <% end %>
   </ul>
 </div>
