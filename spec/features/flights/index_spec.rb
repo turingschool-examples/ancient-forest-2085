@@ -55,4 +55,36 @@ RSpec.describe 'Flights Index' do
       end
     end
   end
+
+  describe "User Story 2" do
+    context "As a visitor" do
+      context "When I visit the flights index page" do
+        it "Next to each passengers name
+          I see a link or button to remove that passenger from that flight
+          When I click on that link/button I'm returned to the flights index page
+          And I no longer see that passenger listed under that flight,
+          And I still see the passenger listed under the other flights they were assigned to" do
+          
+          within("##{@den.id}") do
+            expect(page).to have_button("Remove Joe Smith")
+            expect(page).to have_button("Remove Diana Smith")
+            
+            click_button("Remove Diana Smith")
+            expect(current_path).to eq(flights_path)
+          end
+
+          expect(page).to_not have_content("Diana Smith")
+
+          within("##{@hou.id}") do
+            expect(page).to have_button("Remove Andre D'lau")
+          end
+
+
+          within("##{@nyc.id}") do
+            expect(page).to have_button("Remove LeVar Burton")
+          end
+        end
+      end
+    end
+  end
 end
