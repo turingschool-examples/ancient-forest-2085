@@ -63,7 +63,7 @@ RSpec.describe Flight, type: :feature do
           end
         end
 
-        xit "Next to each passengers name I see a link to remove that passenger from that flight" do
+        it "Next to each passengers name I see a link to remove that passenger from that flight" do
           within "div#flight-#{flight1.id}" do
             expect(page).to have_link("Remove")
           end
@@ -81,7 +81,7 @@ RSpec.describe Flight, type: :feature do
           end
         end
 
-        xit "When I click on that link I'm returned to the flights index page" do
+        it "When I click on that link I'm returned to the flights index page" do
           within "div#flight-#{flight2.id}" do
             click_link "Remove"
           end
@@ -89,7 +89,7 @@ RSpec.describe Flight, type: :feature do
           expect(current_path).to eq(flights_path)
         end
 
-        xit "And I no longer see that passenger listed under that flight, nd I still see the passenger listed under the other flights they were assigned to" do
+        it "And I no longer see that passenger listed under that flight, nd I still see the passenger listed under the other flights they were assigned to" do
           within "div#flight-#{flight2.id}" do
             click_link "Remove"
           end
