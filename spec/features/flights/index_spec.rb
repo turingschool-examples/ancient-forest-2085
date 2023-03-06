@@ -47,4 +47,26 @@ describe 'flights index page' do
     end
     expect(page).to_not have_content(@passenger1.name)
   end
+
+  it 'does not remove the passenger from other flights they are on with this airline' do
+    FlightPassenger.create!(flight_id: @flight2.id, passenger_id: @passenger1.id)
+    visit flights_path
+    within ("div#flight#{@flight2.id}") do
+      within ("div#passenger#{@passenger1.id}") do
+        expect(page).to have_content(@passenger1.name)
+      end
+    end
+    within ("div#flight#{@flight1.id}") do
+      within ("div#passenger#{@passenger1.id}") do
+        expect(page).to have_content(@passenger1.name)
+        click_link('Remove Passenger')
+        expect(current_path).to eq(flights_path)
+      end
+    end
+    within ("div#flight#{@flight2.id}") do
+      within ("div#passenger#{@passenger1.id}") do
+        expect(page).to have_content(@passenger1.name)
+      end
+    end
+  end
 end
