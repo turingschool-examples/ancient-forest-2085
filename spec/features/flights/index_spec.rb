@@ -16,8 +16,11 @@ describe 'As a visitor', type: :feature do
 
     FlightPassenger.create!(flight: @paris, passenger: @chris)
     FlightPassenger.create!(flight: @paris, passenger: @abdul)
+
     FlightPassenger.create!(flight: @melbourne, passenger: @dani)
+    
     FlightPassenger.create!(flight: @suva, passenger: @jamison)
+    FlightPassenger.create!(flight: @suva, passenger: @dani)
   end
 
   describe 'When I visit the flights index page' do
@@ -59,6 +62,7 @@ describe 'As a visitor', type: :feature do
 
       within "##{@suva.number}" do
         expect(page).to have_content(@jamison.name)
+        expect(page).to have_content(@dani.name)
       end
     end
 
@@ -76,27 +80,26 @@ describe 'As a visitor', type: :feature do
 
       within "##{@suva.number}" do
         expect(page).to have_button("Remove #{@jamison.name}")
+        expect(page).to have_button("Remove #{@dani.name}")
       end
     end
 
-    it 'When I click on that button, I am returned to the flights index page and I no longer see that passenger listed under that flight and I still see the other passengers listed under their assigned flights' do
+    it 'When I click on that button, I am returned to the flights index page and I no longer see that passenger listed under that flight and I still see them listed under their other flights' do
       visit flights_path
 
-      click_button "Remove #{@chris.name}"
+      within "##{@suva.number}" do
+        click_button "Remove #{@dani.name}"
+      end
 
       expect(current_path).to eq(flights_path)
       
-      within "##{@paris.number}" do
-        expect(page).to have_content(@chris.name)
-        expect(page).to_not have_content(@abdul.name)
-      end
-
       within "##{@melbourne.number}" do
         expect(page).to have_content(@dani.name)
       end
 
       within "##{@suva.number}" do
         expect(page).to have_content(@jamison.name)
+        expect(page).to_not have_content(@dani.name)
       end
     end
   end

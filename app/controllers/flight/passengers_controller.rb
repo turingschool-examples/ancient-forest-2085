@@ -1,8 +1,8 @@
 class Flight::PassengersController < ApplicationController
   def destroy
-    flight = Flight.find(params[:flight_id])
-    
-    FlightPassenger.destroy(params[:id])
+    flight_passenger = FlightPassenger.find_by(passenger_id: params[:id], flight_id: params[:flight_id])
+
+    flight_passenger.destroy
 
     redirect_to flights_path
   end

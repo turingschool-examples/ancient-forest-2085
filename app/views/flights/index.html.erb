@@ -1,15 +1,22 @@
 <h3>All Flights</h3>
-<h4>Flight Numbers:</h4>
 
 <ul>
   <% @flights.each do |flight| %>
     <div id=<%= flight.number %>>
-      <li>Flight #<%= flight.number %> - <%= flight.airline.name %></li>
-      <p><b>Passengers:</b></p>
+      <li><h4>Flight #<%= flight.number %> - <%= flight.airline.name %></h4></li>
+      <table>
+        <tr>
+          <th>Passengers</th>
+          <th></th>
+        </tr>
+        
         <% flight.passengers.each do |passenger| %>
-          <p><%= passenger.name %></p>
-          <%= button_to "Remove #{passenger.name}", flight_passenger_path(flight, passenger), method: "delete" %>
+          <tr>
+            <td><%= passenger.name %></td>
+            <td><%= button_to "Remove #{passenger.name}", flight_passenger_path(flight, passenger), method: :delete %></td>
+          </tr>
         <% end %>
+      </table>
     </div>
   <% end %>
 </ul>

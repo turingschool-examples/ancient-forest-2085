@@ -21,19 +21,22 @@ RSpec.describe Airline, type: :model do
   
       FlightPassenger.create!(flight: @paris, passenger: @chris)
       FlightPassenger.create!(flight: @paris, passenger: @abdul)
+
       FlightPassenger.create!(flight: @melbourne, passenger: @dani)
-      FlightPassenger.create!(flight: @suva, passenger: @jamison)
       FlightPassenger.create!(flight: @melbourne, passenger: @abdul)
+
+      FlightPassenger.create!(flight: @suva, passenger: @jamison)
+      FlightPassenger.create!(flight: @suva, passenger: @dani)
     end
 
     describe '#list_passengers' do
-      it 'returns a unique list of adult passenger names for an airline' do
-        expect(@united_airlines.list_passengers.sort).to eq(["Abdul", "Dani"].sort)
+      it 'returns a unique list of adult passengers for an airline' do
+        expect(@united_airlines.list_passengers.sort).to eq([@abdul, @dani].sort)
 
         juliet = Passenger.create!(name: "Juliet", age: 22)
         FlightPassenger.create!(flight: @melbourne, passenger: juliet)
 
-        expect(@united_airlines.list_passengers.sort).to eq(["Abdul", "Dani", "Juliet"].sort)
+        expect(@united_airlines.list_passengers.sort).to eq([@abdul, @dani, juliet].sort)
       end
     end
   end

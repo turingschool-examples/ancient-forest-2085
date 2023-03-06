@@ -16,20 +16,23 @@ describe 'As a visitor', type: :feature do
 
     FlightPassenger.create!(flight: @paris, passenger: @chris)
     FlightPassenger.create!(flight: @paris, passenger: @abdul)
+
     FlightPassenger.create!(flight: @melbourne, passenger: @dani)
-    FlightPassenger.create!(flight: @suva, passenger: @jamison)    
     FlightPassenger.create!(flight: @melbourne, passenger: @abdul)
+
+    FlightPassenger.create!(flight: @suva, passenger: @jamison)    
   end
 
   describe 'When I visit an airline show page' do
     it 'I see a unique list of adult passengers that have flights on that airline' do
       visit airline_path(@united_airlines)
-save_and_open_page
+
       within '#passengers' do
         expect(page).to have_content(@abdul.name, count: 1)
-        expect(page).to have_content(@dani.name)
-        expect(page).to_not have_content(@chris.name)
-        expect(page).to_not have_content(@jamison.name)
+        expect(page).to have_content(@dani.name, count: 1)
+
+        expect(page).to_not have_content(@chris.name) #Chris is under the age of 18
+        expect(page).to_not have_content(@jamison.name) #Jamison is on a flight from another airline
       end
     end
   end
