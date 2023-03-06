@@ -19,6 +19,10 @@ RSpec.describe Airline, type: :model do
       @passenger_2 = Passenger.create!(name: "Mark", age: 26)
       @passenger_3 = Passenger.create!(name: "Luke", age: 27)
 
+      @passenger_4 = Passenger.create!(name: "Rack", age: 5) #children
+      @passenger_5 = Passenger.create!(name: "Shack", age: 8) #children
+      @passenger_6 = Passenger.create!(name: "Benny", age: 14) #children
+
       @flight_1.passengers << @passenger_1
       @flight_1.passengers << @passenger_2
       @flight_1.passengers << @passenger_3
@@ -30,9 +34,13 @@ RSpec.describe Airline, type: :model do
       @flight_3.passengers << @passenger_1
       @flight_3.passengers << @passenger_2
       @flight_3.passengers << @passenger_3
+
+      @flight_1.passengers << @passenger_4
+      @flight_1.passengers << @passenger_5
+      @flight_1.passengers << @passenger_6
     end
 
-    it "can find distinct passengers" do
+    it "can find distinct passengers THAT ARE 18 or ABOVE" do
       expect(@airline_1.distinct_passengers).to eq([@passenger_1, @passenger_2, @passenger_3])
     end
   end
