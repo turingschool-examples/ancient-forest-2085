@@ -1,0 +1,8 @@
+<h1><%=@airline.name%></h1>
+
+
+<h4> Unique List of Passenger </h4>
+
+<%@unique_list.each do |passenger|%>
+  <p><%=passenger.name%></p>
+<%end %>

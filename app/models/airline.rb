@@ -4,4 +4,7 @@ class Airline < ApplicationRecord
   has_many :passengers, through: :flights
   validates :name, presence: true
 
+  def unique_list_adults
+    self.passengers.where("age >= ?", 18).uniq
+  end
 end
