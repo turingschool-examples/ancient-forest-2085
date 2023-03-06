@@ -33,7 +33,7 @@ RSpec.describe "Flights Index Page" do
     visit flights_path
   end
 
-  describe 'user_story_1, when visiting flights index page' do 
+  describe 'user_story_1/user_story_2, when visiting flights index page' do 
     it 'has a list of all flight numbers' do 
       within(".flights_info") do 
         expect(page).to have_content(@flight_1.number)
