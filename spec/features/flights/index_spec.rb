@@ -51,7 +51,7 @@ RSpec.describe "Flights Index Page" do
       it 'When I click that button, I am returned to the flights index page and I no longer see that passenger under that flight' do
         within "#flight-#{@flight_1.id}" do
           click_button("Remove #{@hannah.name}")
-          save_and_open_page
+  
           expect(page).to have_content("Passenger: Jade")
           expect(page).to_not have_content("Passenger: Hannah")
         end
