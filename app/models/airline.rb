@@ -4,6 +4,10 @@ class Airline < ApplicationRecord
   has_many :passengers, through: :flight_passengers
 
   def adult_passengers
-    passengers.distinct.where('passengers.age >= 18')
+    passengers.select('passengers.*, count(flights.id)')
+              .distinct
+              .where('passengers.age >= 18')
+              .group(:id)
+              .order('count(flights.id) DESC')
   end
 end

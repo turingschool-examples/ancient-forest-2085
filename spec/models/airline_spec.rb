@@ -29,5 +29,20 @@ RSpec.describe Airline, type: :model do
       expect(@airline1.adult_passengers).to contain_exactly(@passenger1, @passenger2)
       expect(@airline2.adult_passengers).to contain_exactly(@passenger4)
     end
+
+    it 'passengers should be listed by the number of flights they have taken' do
+      @flight5 = Flight.create!(airline_id: @airline1.id, number: "9696", date: "06/05/22", departure_city: "Taipei", arrival_city: 'Chicago')
+      @flight6 = Flight.create!(airline_id: @airline1.id, number: "1212", date: "06/07/22", departure_city: "Paris", arrival_city: 'Chicago')
+      @passenger5 = Passenger.create!(name: 'Sally', age: 36)
+      @passenger6 = Passenger.create!(name: 'Frankie', age: 36)
+      FlightPassenger.create!(flight_id: @flight1.id, passenger_id: @passenger5.id)
+      FlightPassenger.create!(flight_id: @flight3.id, passenger_id: @passenger5.id)
+      FlightPassenger.create!(flight_id: @flight5.id, passenger_id: @passenger5.id)
+      FlightPassenger.create!(flight_id: @flight1.id, passenger_id: @passenger6.id)
+      FlightPassenger.create!(flight_id: @flight3.id, passenger_id: @passenger6.id)
+      FlightPassenger.create!(flight_id: @flight5.id, passenger_id: @passenger6.id)
+      FlightPassenger.create!(flight_id: @flight6.id, passenger_id: @passenger6.id)
+      expect(@airline1.adult_passengers).to eq([@passenger6, @passenger5, @passenger1, @passenger2])
+    end
   end
 end
