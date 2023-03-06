@@ -18,21 +18,21 @@ RSpec.describe 'Airlines Index' do
     @andre = Passenger.create(name: "Andre D'lau", age: 41)
     @diana = Passenger.create(name: "Diana Smith", age: 29)
     
-    # Diana flights -> 4
+    
     PassengerFlight.create(flight: @hou, passenger: @diana)
     PassengerFlight.create(flight: @den, passenger: @diana)
     PassengerFlight.create(flight: @la, passenger: @diana)
     PassengerFlight.create(flight: @anc, passenger: @diana)
-    # Joe Flights -> 3 (Underage, should not appear)
+    
     PassengerFlight.create(flight: @den, passenger: @joe)
     PassengerFlight.create(flight: @hou, passenger: @joe)
     PassengerFlight.create(flight: @la, passenger: @joe)
-    # Andre Flights -> 2
+    
     PassengerFlight.create(flight: @hou, passenger: @andre)
     PassengerFlight.create(flight: @anc, passenger: @andre)
-    # LeVar Flights -> 1 (On Delta, should not appear)
+    
     PassengerFlight.create(flight: @nyc, passenger: @levar)
-    # Derrick Flights -> 1
+    
     PassengerFlight.create(flight: @chi, passenger: @derrick)
        
     visit airline_path(@frontier)
@@ -61,7 +61,7 @@ RSpec.describe 'Airlines Index' do
       context "When I visit an airline's show page" do
         it "I see that the list of adult passengers is sorted by the number off
           flights each passenger has taken on the airline from most to least" do
-          save_and_open_page
+    
           expect(@diana.name).to appear_before(@andre.name)
           expect(@andre.name).to appear_before(@derrick.name)
         end
