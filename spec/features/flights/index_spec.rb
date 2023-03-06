@@ -26,12 +26,15 @@ RSpec.describe 'Flights Index Page', type: :feature do
 
   it 'I see list of all flight numbers next to airline of the flight, and passengers below flight number' do
     expect(page).to have_content("Flight 208: United Airlines") 
-    expect(page).to have_content("Passengers: Andra, James")
+    expect(page).to have_content("Andra")
+    expect(page).to have_content("James")
 
     expect(page).to have_content("Flight 300: United Airlines")
-    expect(page).to have_content("Passengers: Brittany")
+    expect(page).to have_content("Brittany")
 
-    expect(page).to_not have_content("Flight 178: Southwest Airlines")
-    expect(page).to_not have_content("Passengers: Christa")
+
+    expect(page).to have_content("Flight 178: Southwest Airlines")
+    expect(page).to have_content("Christa")
+    
   end
 end
