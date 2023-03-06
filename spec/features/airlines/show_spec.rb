@@ -17,9 +17,9 @@ RSpec.describe "Airline Show Page" do
     @passenger_6 = Passenger.create!(name: "maTHUsaLA", age: 99999) #2 flights!
     @passenger_7 = Passenger.create!(name: "maTHUsaLA", age: 99999) # duplicate passenger
 
-    @passenger_8 = Passenger.create!(name: "maTHUsaLA", age: 8) # kids
-    @passenger_9 = Passenger.create!(name: "maTHUsaLA", age: 9) # kids
-    @passenger_10 = Passenger.create!(name: "maTHUsaLA", age: 10) # kids
+    @passenger_8 = Passenger.create!(name: "Rack", age: 5) #children
+    @passenger_9 = Passenger.create!(name: "Shack", age: 8) #children
+    @passenger_10 = Passenger.create!(name: "Benny", age: 14) #children
 
     @flight_1.passengers << @passenger_1
     @flight_1.passengers << @passenger_2
@@ -41,7 +41,9 @@ RSpec.describe "Airline Show Page" do
       end
 
       it "I see that this list only includes adult passengers" do
-
+        expect(page).to_not have_content(@passenger_8.name)
+        expect(page).to_not have_content(@passenger_9.name)
+        expect(page).to_not have_content(@passenger_10.name)
       end
     end
   end
