@@ -4,4 +4,5 @@
   <div id = <%="flight_#{flight.id}" %>>
  <p>Flight Number: <%= flight.number %> on <%= flight.airline.name %></p>
  <p>Passengers: <%= flight.passengers.name %></p>
+ <%= link_to "Delete", flight_passenger_path(@flight.id, @passenger.id), method:  :delete %>
 <% end %>
