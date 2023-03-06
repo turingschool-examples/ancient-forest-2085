@@ -4,7 +4,10 @@
   <div id=<%="flight#{flight.id}"%>>
     <h2> <%= "Flight Number: #{flight.number}, Airline: #{flight.airline.name}" %> </h2>
     <% flight.passengers.each do |passenger| %>
-    <p> <%= passenger.name %> </p>
+      <div id=<%="passenger#{passenger.id}"%>>
+        <p> <%= passenger.name %> </p>
+        <p> <%= link_to 'Remove Passenger', flight_passenger_path(flight.id, passenger.id), method: :delete %>
+      </div>
     <% end %>
   </div>
 <% end %>

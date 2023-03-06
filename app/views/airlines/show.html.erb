@@ -1,0 +1,6 @@
+<h1> <%= @airline.name %>'s show page </h1>
+
+<h2> Adult Passengers </h2>
+<% @airline.adult_passengers.each do |passenger| %>
+  <p>Passenger: <%= passenger.name %>, Age: <%= passenger.age %>
+<% end %>
