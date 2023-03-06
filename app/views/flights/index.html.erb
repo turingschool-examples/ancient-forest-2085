@@ -6,7 +6,12 @@
   <p>Passengers <p>
   <ul>
   <% flight.passengers.each do |pass|  %>
-   <li> <%= pass.name %></li>
+   <li> <%= pass.name %> 
+    <%= form_with url: "/passenger/#{pass.id}/flight/#{flight.id}", method: :destroy, local: true do |form| %>
+    <%= form.hidden_field :passenger_id, value:"#{pass.id}" %>
+    <%= form.hidden_field :flight_id, value:"#{flight.id}" %>
+    <%= form.submit "Remove #{pass.name}" %>
+    <%end %>
   <% end %>  
   </ul>
   </div>
