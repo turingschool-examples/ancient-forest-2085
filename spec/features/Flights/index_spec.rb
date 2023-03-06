@@ -47,5 +47,42 @@ RSpec.describe "/flights", type: :feature do
       end
     end
   
+    # User Story 2
+    it "next to each passenger name, I see a link/button to remove that passenger from that flight" do
+      within "#flight_info-#{@sw_flight1.id}" do
+        expect(page).to have_button("Remove #{@mel_passenger.name}")
+        expect(page).to have_button("Remove #{@serap_passenger.name}")
+      end
+
+      within "#flight_info-#{@tk_flight3.id}" do
+        expect(page).to have_button("Remove #{@mel_passenger.name}")
+        expect(page).to_not have_button("Remove #{@serap_passenger.name}")
+      end
+    end
+
+    # User Story 2
+    it "click link/button, redirected: flights index page, do NOT see passenger under THAT flight, but DO see passenger under OTHER flights" do
+      within "#flight_info-#{@sw_flight1.id}" do
+        expect(page).to have_content(@mel_passenger.name)
+        expect(page).to have_content(@serap_passenger.name)
+        click_button("Remove #{@mel_passenger.name}")
+      end
+
+      expect(current_path).to eq("/flights")
+
+      within "#flight_info-#{@sw_flight1.id}" do
+        expect(page).to have_content(@serap_passenger.name)
+        expect(page).to_not have_content(@mel_passenger.name)
+      end
+
+      within "#flight_info-#{@sw_flight2.id}" do
+        expect(page).to have_content(@mel_passenger.name)
+      end
+
+      within "#flight_info-#{@tk_flight3.id}" do
+        expect(page).to have_content(@mel_passenger.name)
+      end
+    end
+    
   end
 end
