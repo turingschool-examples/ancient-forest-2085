@@ -7,7 +7,7 @@ RSpec.describe "Airline Show Page" do
 
     @flight_1 = @airline_1.flights.create!(number: "47", date: "08/03/22", departure_city: "Moscow", arrival_city: "Paris")
     @flight_2 = @airline_1.flights.create!(number: "29", date: "05/06/22", departure_city: "Rome", arrival_city: "Jerusalem")
-    @flight_3 = @airline_1.flights.create!(number: "369", date: "09/03/06", departure_city: "Somewhere", arrival_city: "Nowhere") #Control
+    @flight_3 = @airline_2.flights.create!(number: "369", date: "09/03/06", departure_city: "Somewhere", arrival_city: "Nowhere") #Control
 
     @passenger_1 = Passenger.create!(name: "Matthew", age: 25)
     @passenger_2 = Passenger.create!(name: "Mark", age: 26)
@@ -44,6 +44,18 @@ RSpec.describe "Airline Show Page" do
         expect(page).to_not have_content(@passenger_8.name)
         expect(page).to_not have_content(@passenger_9.name)
         expect(page).to_not have_content(@passenger_10.name)
+      end
+    end
+
+    describe "Extension" do
+      xit "the list of adult passengers is sorted by the number of flights each passenger has taken" do
+        #passenger_6 has 2 flights, passenger_1 has 1 flight, passenger_2 has 1 flight
+        @flight_3 = @airline_1.flights.create!(number: "8", date: "08/08/88", departure_city: "Denver", arrival_city: "MARS lol")
+
+        @flight_3.passengers << @passenger_1
+
+        expect(@passenger_6.name).to appear_before(@passenger_1.name)
+        expect(@passenger_1.name).to appear_before(@passenger_2.name)
       end
     end
   end

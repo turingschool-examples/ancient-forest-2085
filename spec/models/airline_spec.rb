@@ -23,11 +23,8 @@ RSpec.describe Airline, type: :model do
       @passenger_5 = Passenger.create!(name: "Shack", age: 8) #children
       @passenger_6 = Passenger.create!(name: "Benny", age: 14) #children
 
-      @flight_1.passengers << @passenger_1
-      @flight_1.passengers << @passenger_2
       @flight_1.passengers << @passenger_3
 
-      @flight_2.passengers << @passenger_1
       @flight_2.passengers << @passenger_2
       @flight_2.passengers << @passenger_3
 
@@ -40,8 +37,10 @@ RSpec.describe Airline, type: :model do
       @flight_1.passengers << @passenger_6
     end
 
-    it "can find distinct passengers THAT ARE 18 or ABOVE" do
-      expect(@airline_1.distinct_adult_passengers).to eq([@passenger_1, @passenger_2, @passenger_3])
+    describe "distinct_adult_passengers" do
+      it "can find distinct passengers THAT ARE 18 or ABOVE, in order of most flights taken" do
+        expect(@airline_1.distinct_adult_passengers).to eq([@passenger_3, @passenger_2, @passenger_1])
+      end
     end
   end
 end
