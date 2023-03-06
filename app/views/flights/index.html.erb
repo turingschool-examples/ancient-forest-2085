@@ -9,7 +9,7 @@
     <% flight.passengers.each do |passenger|%>
       <div id="passenger-<%= passenger.id %>-flight-<%= flight.id %>">
       
-      <p><%= passenger.name %><%= link_to "Delete Passenger", "/passenger_flights/#{passenger.passenger_flights.first.id}", method: :delete %></p>
+      <p><%= passenger.name %>  <%= link_to "Delete Passenger", "/passenger_flights/#{passenger.passenger_flights.first.id}", method: :delete %></p>
       </div>
     <% end %>
   </div>

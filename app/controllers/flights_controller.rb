@@ -1,5 +1,5 @@
 class FlightsController < ApplicationController
   def index
-    @flights = Flight.all.distinct
+    @flights = Flight.all
   end
 end
