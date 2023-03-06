@@ -5,9 +5,9 @@ RSpec.describe 'Flights Index Page', type: :feature do
   let!(:southwest) { Airline.create!(name: "Southwest") }
 
   let!(:flight_1) { Flight.create!(number: "208", date: "08/22/2023", departure_city: "Denver", arrival_city: "Honolulu", airline_id: united.id) }
-  let!(:flight_2) { Flight.create!(number: "300", date: "08/22/2023", departure_city: "San Francisco", arrival_city: "Chicago" airline_id: united.id) }
+  let!(:flight_2) { Flight.create!(number: "300", date: "08/22/2023", departure_city: "San Francisco", arrival_city: "Chicago", airline_id: united.id) }
 
-  let!(:flight_3) { Flight.create!(number: "178", date: "08/22/2023", departure_city: "Miami", arrival_city: "Portland" airline_id: southwest.id) }
+  let!(:flight_3) { Flight.create!(number: "178", date: "08/22/2023", departure_city: "Miami", arrival_city: "Portland", airline_id: southwest.id) }
 
   
   let!(:andra) { Passenger.create!(name: "Andra", age: 29) }
@@ -24,7 +24,7 @@ RSpec.describe 'Flights Index Page', type: :feature do
     visit "/flights"
   end
 
-  it 'I see list of all flight numbers next to airline of the flight' do
+  it 'I see list of all flight numbers next to airline of the flight, and passengers below flight number' do
     expect(page).to have_content("Flight 208: United Airlines") 
     expect(page).to have_content("Passengers: Andra, James")
 
