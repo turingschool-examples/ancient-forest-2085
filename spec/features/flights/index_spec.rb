@@ -47,4 +47,65 @@ RSpec.describe 'The Flights Index Page' do
       }
     end
   end
+
+  describe 'User Story 2' do
+    it 'shows the visitor a button to remove that passenger from that flight, for each passenger' do
+      within("#passenger-#{@passenger_1.id}") {
+        expect(page).to have_button("Remove Dawson")
+      }
+      within("#passenger-#{@passenger_2.id}") {
+        expect(page).to have_button("Remove Tim")
+      }
+      within("#passenger-#{@passenger_3.id}") {
+        expect(page).to have_button("Remove Sally")
+      }
+      within("#passenger-#{@passenger_4.id}") {
+        expect(page).to have_button("Remove Matt")
+      }
+      within("#passenger-#{@passenger_5.id}") {
+        expect(page).to have_button("Remove Jennifer")
+      }
+      within("#passenger-#{@passenger_6.id}") {
+        expect(page).to have_button("Remove Murphy")
+      }
+    end
+
+    it 'redirects back to the index page after this button is clicked, they no longer see that passenger listed under that flight,
+    but they still see the passenger listed under the other flights they were assigned to' do
+      
+      @fp_6 = FlightPassenger.create!(flight_id: @flight_2.id, passenger_id: @passenger_1.id)
+      visit "/flights"
+    
+      within("#passengers_for_flight-#{@flight_1.id}") {
+        expect(page).to have_content("Dawson")
+        expect(page).to have_content("Tim")
+        expect(page).to have_content("Sally")
+      }
+      within("#passengers_for_flight-#{@flight_2.id}") {
+        expect(page).to have_content("Matt")
+        expect(page).to have_content("Jennifer")
+        expect(page).to have_content("Dawson")
+      }
+
+      within("#passengers_for_flight-#{@flight_2.id}") {
+        within("#passenger-#{@passenger_1.id}") {
+          click_button "Remove Dawson"
+        }
+      }
+
+      expect(current_path).to eq(flights_path)
+
+      within("#passengers_for_flight-#{@flight_2.id}") {
+        expect(page).to have_content("Matt")
+        expect(page).to have_content("Jennifer")
+      }
+
+      within("#passengers_for_flight-#{@flight_1.id}") {
+        expect(page).to have_content("Dawson")
+        expect(page).to have_content("Tim")
+        expect(page).to have_content("Sally")
+      }
+
+    end
+  end
 end
