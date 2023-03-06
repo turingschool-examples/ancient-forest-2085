@@ -1,0 +1,10 @@
+<h1>Flight Index Page</h1>
+
+<% @flights.each do |flight| %>
+  <p>Flight Number: <%= flight.number %>,  Name: <%= flight.airline.name %></p>
+  <h3>Passengers: </h3>
+  <ul>
+    <li><% flight.passengers.each do |passenger| %></li>
+        <%= link_to "Delete #{passenger.name}", "/flights", method: :delete %>
+    <% end %>
+<% end %>
