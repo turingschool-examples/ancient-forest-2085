@@ -37,7 +37,6 @@ describe 'Airline Show Page' do
     it 'I see that this list only includes adult passengers' do
       expect(page).to have_no_content("Sam")
       expect(page).to have_no_content("Meghan")
-      save_and_open_page
     end
   end
 end

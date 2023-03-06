@@ -5,7 +5,7 @@
     <h4>Flight Number: <%=flight.number%> - <%=flight.airline.name%></h4>
       <%flight.flight_passengers.each do |fp|%>
         <div id="passenger-<%=fp.passenger.id%>">
-          <p><%=fp.passenger.name%><%= button_to "Remove Passenger", flight_passenger_path(fp), method: :delete, local: true %></p>
+          <p><%=fp.passenger.name%> <%= button_to "Remove Passenger", flight_passenger_path(fp), method: :delete, local: true %></p>
         </div>
       <%end%>
   </div>
