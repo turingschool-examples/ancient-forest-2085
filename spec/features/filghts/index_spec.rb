@@ -22,8 +22,6 @@ RSpec.describe "Flights Index Page", type: :feature do
       passenger_2.passenger_flights.create!(flight: flight_2)
 
       passenger_3.passenger_flights.create!(flight: flight_1)
-
-
     end
 
 
