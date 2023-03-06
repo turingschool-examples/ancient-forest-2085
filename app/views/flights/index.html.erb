@@ -3,7 +3,9 @@
 <% @flights.each do |flight| %>
 <h3>Flight <%= flight.number %>: <%= flight.airline.name %> Airlines</h3>
   <% flight.passengers.each do |passenger| %>
+
   <h4>Passengers:</h4>
-    <ul><li><%= passenger.name %><li></ul>
+    <ul><li><%= passenger.name %> <%= link_to "Delete", "/flights", method: :delete %> <li></ul>
   <%end%>
+
 <%end%>

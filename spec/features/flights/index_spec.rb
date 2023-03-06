@@ -35,6 +35,12 @@ RSpec.describe 'Flights Index Page', type: :feature do
 
     expect(page).to have_content("Flight 178: Southwest Airlines")
     expect(page).to have_content("Christa")
-    
   end
+
+  it 'Next to each passengers name, I see a link or button to remove that passenger from that flight' do
+      expect(page).to have_link("Delete")
+  end
+
+
+
 end
