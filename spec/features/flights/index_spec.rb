@@ -16,6 +16,7 @@ RSpec.describe 'Flights Index Page' do
 
       before do
         PassengerFlight.create!(flight: flight1, passenger: passenger1)
+        PassengerFlight.create!(flight: flight2, passenger: passenger1)
         PassengerFlight.create!(flight: flight1, passenger: passenger2)
         PassengerFlight.create!(flight: flight1, passenger: passenger3)
         PassengerFlight.create!(flight: flight2, passenger: passenger4)
@@ -39,7 +40,7 @@ RSpec.describe 'Flights Index Page' do
           expect(page).to have_content("Flight Number: 1728, Name: Southwest")
           expect(page).to have_content("John")
           expect(page).to have_content("Marsha")
-          expect(page).to_not have_content("Bob")
+          expect(page).to have_content("Bob")
           expect(page).to_not have_content("Joe")
           expect(page).to_not have_content("Sally")
         end
@@ -47,10 +48,16 @@ RSpec.describe 'Flights Index Page' do
 
       # User Story 2, Remove a Passenger from a Flight
       it "Next to each passengers name, I see a link to remove them from the flight" do
-        expect(page).to have_link("Delete #{passenger1.name}")
-        click_on "Delete #{passenger1.name}"
-        expect(current_path).to eq("/flights")
-        expect(page).to_not have_link("Delete #{passenger1.name}")
+        within "#flight-#{flight1.number}" do
+          expect(page).to have_link("Delete #{passenger1.name} from #{flight1.number}")
+          click_on "Delete #{passenger1.name}"
+          expect(current_path).to eq("/flights")
+          expect(page).to_not have_link("Delete #{passenger1.name}")
+        end
+
+        within "#flight-#{flight2.number}" do
+          expect(page).to have_link("Delete #{passenger1.name} from #{flight2.number}")
+        end
       end
     end
   end
