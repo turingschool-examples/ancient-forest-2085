@@ -32,21 +32,21 @@ RSpec.describe 'Flights Index' do
           expect(page).to have_content("Flight: 1992")
           expect(page).to have_content("Flight: 2022")
           
-          within("#flight-#{@den.id}") do
+          within("##{@den.id}") do
             expect(page).to have_content("Frontier Airlines")
             expect(page).to have_content("Passengers:")
             expect(page).to have_content("Joe Smith")
             expect(page).to have_content("Diana Smith")
           end
 
-          within("#flight-#{@hou.id}") do
+          within("##{@hou.id}") do
             expect(page).to have_content("Frontier Airlines")
             expect(page).to have_content("Passengers:")
             expect(page).to have_content("Andre D'lau")
           end
 
 
-          within("#flight-#{@hou.id}") do
+          within("##{@nyc.id}") do
             expect(page).to have_content("Delta Airlines")
             expect(page).to have_content("Passengers:")
             expect(page).to have_content("LeVar Burton")
