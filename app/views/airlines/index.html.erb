@@ -1,0 +1,5 @@
+<h2>All Airlines</h2>
+
+<% @airlines.each do |airline| %>
+	<p><%= link_to airline.name, airline_path(airline) %></p>
+<% end %>
