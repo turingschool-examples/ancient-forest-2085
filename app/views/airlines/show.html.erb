@@ -1,5 +1,5 @@
 <div id = "airline">
-  <% @airline.show_uniq_adults.each do |passenger| %>
+  <% @airline.show_distinct_adults.each do |passenger| %>
     <p><%= passenger.name %></p>
   <% end %>
 </div>

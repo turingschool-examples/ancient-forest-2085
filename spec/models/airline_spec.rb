@@ -33,6 +33,6 @@ RSpec.describe Airline, type: :model do
   end
 
   it '.show_uniq_adults' do
-    expect(@airline1.show_uniq_adults).to match([@passenger1, @passenger2, @passenger5, @passenger6])
+    expect(@airline1.show_distinct_adults).to match([@passenger1, @passenger2, @passenger5, @passenger6])
   end
 end
