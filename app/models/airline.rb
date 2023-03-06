@@ -5,6 +5,9 @@ class Airline < ApplicationRecord
   validates_presence_of :name
 
   def unique_adult_passengers
-    self.passengers.distinct.where("age >= ?", 18)
+    passengers.select("passengers.*, count(flight_passengers.id) as num_flights")
+      .where("age >= ?", 18)
+      .group(:id)
+      .order("num_flights desc")
   end
 end
