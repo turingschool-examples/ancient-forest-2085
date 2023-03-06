@@ -17,8 +17,19 @@ RSpec.describe '/flights/index', type: :feature do
       end
 
       it 'I see an airline name next to each flight number' do
+        @american = Airline.create!(name: 'American')
+        @flight1 = @american.flights.create!(number: "1283", date: "10/27/17", departure_city: "Bangkok", arrival_city: "Johannesburg")
+        @flight2 = @american.flights.create!(number: "1187", date: "10/27/17", departure_city: "Bangkok", arrival_city: "Hong Kong")
+        @flight3 = @american.flights.create!(number: "1045", date: "10/27/17", departure_city: "Bangkok", arrival_city: "Sydney")
         
+        visit "/flights"
+
+        expect(page).to have_content("1283 - American")
+        expect(page).to have_content("1187 - American")
+        expect(page).to have_content("1045 - American")
       end
+
+      
     end
   end
 end
