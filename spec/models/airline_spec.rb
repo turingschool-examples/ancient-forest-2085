@@ -37,9 +37,15 @@ RSpec.describe Airline, type: :model do
     @p_flight_7 = PassengerFlight.create!(flight_id: @flight_3.id, passenger_id: @passenger_4.id)
   end
 
-  describe '#all_passengers' do 
+  describe '#all_adult_passengers' do 
     it 'is a unique list of all adult passengers' do 
       expect(@airline_2.all_adult_passengers).to eq([@passenger_1, @passenger_2, @passenger_4])
+    end
+  end
+
+  describe '#all_adult_passengers_sorted' do 
+    it 'is a list of passengers sorted by number of flights they took' do 
+      expect(@airline_2.all_adult_passengers_sorted).to eq([@passenger_4, @passenger_1, @passenger_2])
     end
   end
 end
