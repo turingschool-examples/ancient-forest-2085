@@ -1,11 +1,7 @@
 require 'rails_helper'
+RSpec.describe Airline, type: :feature do 
 
-RSpec.describe Airline, type: :model do
-  describe 'relationships' do
-    it {should have_many :flights}
-  end
-
-  describe "Instance methods" do
+  describe 'Airline Show' do
     let!(:southwest) { Airline.create!(name: "SouthWest") }
     let!(:united) { Airline.create!(name: "United") }
 
@@ -27,11 +23,20 @@ RSpec.describe Airline, type: :model do
       flight3.flight_passengers.create!(passenger: rachel)
       flight3.flight_passengers.create!(passenger: sara)
       flight4.flight_passengers.create!(passenger: gina)
+
+      visit airline_path(southwest)
     end
 
-    it "#find_passengers" do
-      expect(southwest.find_passengers).to eq([bob, sara])
+    describe 'As a visitor' do 
+      context 'When I visit Airline show' do 
+        it 'I see a list of passengers that have flights on that airline, that it is unique, and that it only includes people over 18' do
+          expect(page).to have_content("Bob").once
+          expect(page).to have_content("Sara").once
+          expect(page).to_not have_content("Rob")
+          expect(page).to_not have_content("Rachel")
+          expect(page).to_not have_content("Gina")
+        end
+      end
     end
-
   end
 end
