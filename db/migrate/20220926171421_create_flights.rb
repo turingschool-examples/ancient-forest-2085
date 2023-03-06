@@ -6,6 +6,8 @@ class CreateFlights < ActiveRecord::Migration[5.2]
       t.string :date
       t.string :departure_city
       t.string :arrival_city
+
+      t.timestamps
     end
   end
 end
