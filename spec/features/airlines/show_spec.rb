@@ -1,9 +1,9 @@
 require 'rails_helper'
 
-RSpec.describe 'Flights Index Page' do
+RSpec.describe 'Airline Show Page' do
   describe "As a visitor" do
-    describe "When I visit /flights" do
-
+    describe "When I visit /airlines/:id" do
+      
       let!(:airline1) { Airline.create!(name: "Frontier") }
       let!(:airline2) { Airline.create!(name: "Southwest") }
       let!(:flight1) { Flight.create!(number: 1727, date: "08/03/20", departure_city: "Denver", arrival_city: "Reno", airline_id: airline1.id) }
@@ -13,7 +13,7 @@ RSpec.describe 'Flights Index Page' do
       let!(:passenger3) { Passenger.create!(name: "Sally", age: 23) }
       let!(:passenger4) { Passenger.create!(name: "John", age: 41) }
       let!(:passenger5) { Passenger.create!(name: "Marsha", age: 25) }
-
+      
       before do
         PassengerFlight.create!(flight: flight1, passenger: passenger1)
         PassengerFlight.create!(flight: flight1, passenger: passenger2)
@@ -21,23 +21,25 @@ RSpec.describe 'Flights Index Page' do
         PassengerFlight.create!(flight: flight2, passenger: passenger4)
         PassengerFlight.create!(flight: flight2, passenger: passenger5)
         
-        visit "/flights"
+        visit "/airlines/#{airline1.id}"
       end
 
-      # User Story 1, Flights Index Page
-      xit "I see a list of all flight numbers" do
-        expect(page).to have_content("Flight Number: 1727, Name: Frontier")
-        expect(page).to have_content("Passengers: Bob Joe Sally")
-        expect(page).to have_content("Flight Number: 1728, Name: Southwest")
-        expect(page).to have_content("Passengers: John Marsha")
-      end
+      # User Story 3, Airline's Passengers
+      
+      # As a visitor
+      # When I visit an airline's show page
+      # Then I see a list of passengers that have flights on that airline
+      # And I see that this list is unique (no duplicate passengers)
+      # And I see that this list only includes adult passengers
+      
+      # (Note: an adult is anyone with age greater than or equal to 18)
 
-      # User Story 2, Remove a Passenger from a Flight
-      xit "Next to each passengers name, I see a link to remove them from the flight" do
-        expect(page).to have_link("Delete #{passenger1.name}")
-        click_on "Delete #{passenger1.name}"
-        expect(current_path).to eq("/flights")
-        expect(page).to_not have_link("Delete #{passenger1.name}")
+      describe "Then I see a list of passengers that have flights on that airline" do
+        describe "And I see that this list is unique (no duplicate passengers)" do
+          it "And I see that this list only includes adult passengers" do
+            expect(page).to have_content("Passengers:\nBob\nJoe\nSally")
+          end
+        end
       end
     end
   end
