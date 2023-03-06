@@ -48,7 +48,7 @@ describe 'flights index page' do
     expect(page).to_not have_content(@passenger1.name)
   end
 
-  it 'does not remove the passenger from other flights they are on with this airline' do
+  it 'does not remove the passenger from other flights they are on' do
     FlightPassenger.create!(flight_id: @flight2.id, passenger_id: @passenger1.id)
     visit flights_path
     within ("div#flight#{@flight2.id}") do
