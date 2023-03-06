@@ -130,7 +130,7 @@ RSpec.describe 'flights index page', type: :feature do
 			end
 		end
 
-		it 'removes passenger and redirects back to index page when button is clicked' do
+		it 'removes passenger and redirects back to index page when button is clicked, does not remove from other flights' do
 			within "#flight-#{flight_1.id}" do
 				expect(page).to have_content(passenger_1.name)
 			end
