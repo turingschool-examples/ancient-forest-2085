@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(version: 2023_03_06_161147) do
 
   create_table "flights", force: :cascade do |t|
     t.bigint "airline_id"
-    t.string "number"
+    t.integer "number"
     t.string "date"
     t.string "departure_city"
     t.string "arrival_city"

@@ -1,0 +1,17 @@
+<h1> Flights Index </h1>
+
+
+
+<%@all_flights.each do |flight|%>
+
+  <div id="flight<%="#{flight.number}"%>">
+  <h2>Flight Number and Airline Name</h2>
+  <p><%=flight.number%> <%=flight.airline.name%> </p>
+  Flight's Passengers:
+    <%flight.passengers.each do |passenger|%>
+    
+      <%=passenger.name%>
+    <%end%>
+    <br>
+    <br>
+<%end%>
