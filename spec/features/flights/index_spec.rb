@@ -17,13 +17,18 @@ RSpec.describe 'the flights index page' do
 
       visit '/flights'
       
-      expect(page).to have_content("Flight Number: #{flight1.number}, Airline: #{flight1.airline}")
-      expect(page).to have_content("Flight Number: #{flight2.number}, Airline: #{flight2.airline}")
-      expect(page).to have_content("Flight Number: #{flight3.number}, Airline: #{flight3.airline}")
+      expect(page).to have_content("Flight Number: #{flight1.number}, Airline: #{flight1.airline.name}")
+      expect(page).to have_content("Flight Number: #{flight2.number}, Airline: #{flight2.airline.name}")
+      expect(page).to have_content("Flight Number: #{flight3.number}, Airline: #{flight3.airline.name}")
 
+      expect(page).to have_content("Matt Smith", count: 2)
+      expect(page).to have_content("Stephanie Smith", count: 1)
+      expect(page).to have_content("Sunita Smith", count: 1)
 
-
-
+      within("##{flight3.number}") do
+        expect(page).to have_content("Matt Smith")
+        expect(page).to have_content("Sunita Smith")
+      end
     end
   end
 end
