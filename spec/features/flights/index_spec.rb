@@ -66,6 +66,9 @@ RSpec.describe 'flights index page', type: :feature do
 
 			within "##{flight_4.id}" do
 				expect(page).to have_content("Passengers:")
+				within '#passengers' do
+					expect(page).to have_no_content
+				end
 			end
 
 			within "##{flight_5.id}" do
@@ -74,6 +77,51 @@ RSpec.describe 'flights index page', type: :feature do
 					expect(page).to have_content(passenger_5.name)
 					expect(page).to have_content(passenger_6.name)
 					expect(page).to have_content(passenger_7.name)
+				end
+			end
+		end
+	end
+
+	describe 'remove passenger from a flight' do
+		it 'has a button next to each passenger name to remove from that flight' do
+			within "##{flight_1.id}" do
+				within "##{passenger_1.id}" do
+					expect(page).to have_button('Remove from Flight')
+				end
+			end
+
+			within "##{flight_2.id}" do
+				within "##{passenger_2.id}" do
+					expect(page).to have_button('Remove from Flight')
+				end
+			end
+
+			within "##{flight_3.id}" do
+				within "##{passenger_3.id}" do
+					expect(page).to have_button('Remove from Flight')
+				end
+				within "##{passenger_4.id}" do
+					expect(page).to have_button('Remove from Flight')
+				end
+			end
+
+			within "##{flight_4.id}" do
+				within '#passengers' do
+					expect(page).to_not have_button('Remove from Flight')
+				end
+			end
+
+			within "##{flight_5.id}" do
+				within '#passengers' do
+					within "##{passenger_5.id}" do
+						expect(page).to have_button('Remove from Flight')
+					end
+					within "##{passenger_6.id}" do
+						expect(page).to have_button('Remove from Flight')
+					end
+					within "##{passenger_7.id}" do
+						expect(page).to have_button('Remove from Flight')
+					end
 				end
 			end
 		end
