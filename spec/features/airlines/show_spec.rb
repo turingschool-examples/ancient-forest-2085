@@ -28,7 +28,7 @@ describe 'As a visitor', type: :feature do
       visit airline_path(@united_airlines)
 
       within '#passengers' do
-        expect(page).to have_content(@abdul.name, count: 1)
+        expect(page).to have_content(@abdul.name, count: 1) #Abdul appears once, even though he is on 2 flights
         expect(page).to have_content(@dani.name, count: 1)
 
         expect(page).to_not have_content(@chris.name) #Chris is under the age of 18
