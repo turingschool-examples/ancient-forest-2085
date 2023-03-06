@@ -17,7 +17,7 @@ RSpec.describe 'Flights Index Page' do
         PassengerFlight.create(passenger_id: @passenger_1.id, flight_id: @flight_1.id)
         PassengerFlight.create(passenger_id: @passenger_2.id, flight_id: @flight_1.id)
         PassengerFlight.create(passenger_id: @passenger_3.id, flight_id: @flight_2.id)
-        PassengerFlight.create(passenger_id: @passenger_4.id, flight_id: @flight_2.id)
+        PassengerFlight.create(passenger_id: @passenger_1.id, flight_id: @flight_2.id)
         
         visit flights_path
       end
@@ -28,21 +28,33 @@ RSpec.describe 'Flights Index Page' do
           expect(page).to have_content(@passenger_1.name)
           expect(page).to have_content(@passenger_2.name)
         end
-
+        
         within("div#flight_details-#{@flight_2.id}") do
           expect(page).to have_content("Flight Details: #{@flight_2.airline.name} - ##{@flight_2.number}")
+          expect(page).to have_content(@passenger_1.name)
           expect(page).to have_content(@passenger_3.name)
-          expect(page).to have_content(@passenger_4.name)
         end
       end
 
-      # it "" do
-      #   expect(page).to have_link("Items")
+      it "I see a link or button to remove that passenger from that flight, I click it, and I'm returned to the flights index page" do
+    
+        within("div##{@passenger_1.id}-#{@flight_1.id}") do
+          expect(page).to have_content("Tom")
+          expect(page).to have_button("Delete")
+          
+          click_button "Delete"
+        end
 
-      #   click_link "Items"
+        expect(current_path).to eq(flights_path)
+        
+        within("div#flight_details-#{@flight_1.id}") do
+          expect(page).to_not have_content("#{@passenger_1.name}")
+        end
 
-      #   expect(current_path).to eq("/merchant/#{@merchant1.id}/items")
-      # end
+        within("div#flight_details-#{@flight_2.id}") do
+          expect(page).to have_content("#{@passenger_1.name}")
+        end
+      end
 
       # it 'can see a link to my merchant invoices index' do
       #   expect(page).to have_link("Invoices")

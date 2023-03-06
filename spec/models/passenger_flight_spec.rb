@@ -5,4 +5,8 @@ RSpec.describe PassengerFlight, type: :model do
     it { should belong_to :passenger }
     it { should belong_to :flight }
   end
+
+  describe 'class_methods' do
+    context '#delete_flight_for()'
+  end
 end
