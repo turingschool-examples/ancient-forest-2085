@@ -1,0 +1,9 @@
+<h3><%= @airline.name %></h3>
+<ul id='flight_passengers'>
+  <% @adult_passengers.each do |passenger| %>
+  <%binding.pry%>
+    <div id="<%= passenger.id %>">
+      <li><%= passenger.name %></li>
+    </div>
+  <% end %>
+</ul>
