@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Flights Index Page' do
+RSpec.describe 'Flights Index Page', type: :feature do
   describe 'As a visitor' do
     before :each do
       @airline = Airline.create!(name: "Frontier")
