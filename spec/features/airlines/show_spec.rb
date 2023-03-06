@@ -48,7 +48,7 @@ RSpec.describe "Airline Show Page" do
     end
 
     describe "Extension" do
-      xit "the list of adult passengers is sorted by the number of flights each passenger has taken" do
+      it "the list of adult passengers is sorted by the number of flights each passenger has taken" do
         #passenger_6 has 2 flights, passenger_1 has 1 flight, passenger_2 has 1 flight
         @flight_3 = @airline_1.flights.create!(number: "8", date: "08/08/88", departure_city: "Denver", arrival_city: "MARS lol")
 
