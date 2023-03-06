@@ -15,11 +15,11 @@ RSpec.describe "Flights Index Page" do
   describe "As a visitor" do
     describe "User Story 1" do
       it "I see a list of all flight numbers" do
-        within "#flight-#{@flight_1.id}" do
+        within "#flight_#{@flight_1.id}" do
           expect(page).to have_content("Flight Number: #{@flight_1.number}")
         end
 
-        within "#flight-#{@flight_2.id}" do
+        within "#flight_#{@flight_2.id}" do
           expect(page).to have_content("Flight Number: #{@flight_2.number}")
         end
       end
