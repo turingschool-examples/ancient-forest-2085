@@ -1,19 +1,13 @@
 <h1><%= @airline.name %></h1>
 
-<div class = "airline_passengers">
-<h3>Passengers: </h3>
-  <% @airline.all_adult_passengers.each do |passenger| %>
-    <ul>
-      <li><%= passenger.name %></li>
-    </ul>
-  <% end %>
-</div>
-
 <div class = "frequent_flyers">
   <h3>Passenger's Flight Count</h3>
   <% @airline.all_adult_passengers_sorted.each do |passenger| %>
+  <div id= <%= "passenger_#{passenger.id}"%>>
     <ul>
-     <li><%=passenger.name%> Flight Count: <%= passenger.flight_count %> </li>
+     <li><%=passenger.name%> 
+      Flight Count: <%= passenger.flight_count %> </li>
     </ul>
+  </div>
   <% end %>
 </div>

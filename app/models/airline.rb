@@ -2,10 +2,6 @@ class Airline < ApplicationRecord
   has_many :flights
   has_many :passengers, through: :flights
 
-  def all_adult_passengers 
-   passengers.where('passengers.age >= ?', 18).distinct
-  end
-
   def all_adult_passengers_sorted 
     passengers.joins(:flights)
               .where('passengers.age >= ?', 18)
