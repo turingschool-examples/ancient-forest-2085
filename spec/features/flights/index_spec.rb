@@ -9,6 +9,17 @@ RSpec.describe "Flights Index Page" do
     @flight_2 = @airline_1.flights.create!(number: "29", date: "05/06/22", departure_city: "Rome", arrival_city: "Jerusalem")
     @flight_3 = @airline_1.flights.create!(number: "369", date: "09/03/06", departure_city: "Somewhere", arrival_city: "Nowhere") #Control
 
+    @passenger_1 = Passenger.create!(name: "Matthew", age: 25)
+    @passenger_2 = Passenger.create!(name: "Mark", age: 26)
+    @passenger_3 = Passenger.create!(name: "Luke", age: 27)
+    @passenger_4 = Passenger.create!(name: "John", age: 80)
+    @passenger_5 = Passenger.create!(name: "Judas", age: 666) #Control
+
+    @flight_1.passengers << @passenger_1
+    @flight_1.passengers << @passenger_2
+    @flight_2.passengers << @passenger_3
+    @flight_2.passengers << @passenger_4
+
     visit flights_path
   end
 
@@ -30,14 +41,26 @@ RSpec.describe "Flights Index Page" do
         end
 
         within "#flight_#{@flight_2.id}" do
-        expect(page).to have_content("- #{@airline_1.name}")
+          expect(page).to have_content("- #{@airline_1.name}")
         end
 
         expect(page).to_not have_content(@airline_2.name)
       end
 
       it "And under each flight number I see the names of all that flight's passengers" do
+        within("#flight_#{@flight_1.id}") do
+          expect(page).to have_content("Passengers:")
+          expect(page).to have_content(@passenger_1.name)
+          expect(page).to have_content(@passenger_2.name)
+        end
 
+        within("#flight_#{@flight_2.id}") do
+          expect(page).to have_content("Passengers:")
+          expect(page).to have_content(@passenger_3.name)
+          expect(page).to have_content(@passenger_4.name)
+        end
+
+        expect(page).to_not have_content(@passenger_5.name)
       end
     end
   end
