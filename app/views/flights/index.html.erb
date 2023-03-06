@@ -5,9 +5,13 @@
     <p>Flight Number: <%= flight.number %> | Airline: <%= flight.airline.name %></p>
     <p>Passengers:</p>
     <ul>
-      <div id="passengers-<%= flight.id %>">
+      <div id="passengers">
         <% flight.passengers.each do |passenger| %>
-          <li><%= passenger.name %></li>
+          <li>
+            <div id="passenger-<%= passenger.id %>">
+              <%= passenger.name %> <%= button_to "Remove Passenger", [flight, passenger], method: :delete %>
+            </div>
+          </li>
         <% end %>
       </div>
     </ul>
