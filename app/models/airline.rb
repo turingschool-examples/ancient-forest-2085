@@ -5,5 +5,7 @@ class Airline < ApplicationRecord
 
   def uniq_passengers_list
     passengers.distinct.order(:name)
+    # ordered by name so array would be consistent in model test
+    # this would change if I had time to finish the extention
   end
 end
