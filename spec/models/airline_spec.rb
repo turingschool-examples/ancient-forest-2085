@@ -12,7 +12,7 @@ RSpec.describe Airline, type: :model do
 
   describe '#Instance Methods' do
     describe '#unique_adult_passengers' do
-      it 'returns all unique adult passengers (age >= 18)' do
+      it 'returns all unique adult passengers (age >= 18), sorted from most flights on airline to least' do
         @airline = Airline.create!(name: 'Emirates')
 
         @flight_1 = Flight.create!(airline: @airline, number: "1111", date: "03/06/23", departure_city: 'Denver', arrival_city: 'Charlotte')
@@ -27,14 +27,21 @@ RSpec.describe Airline, type: :model do
         @kid = Passenger.create!(name: "Kid", age: 5)
 
         FlightPassenger.create!(flight: @flight_1, passenger: @adam)
-        FlightPassenger.create!(flight: @flight_2, passenger: @abdul)
         FlightPassenger.create!(flight: @flight_2, passenger: @adam)
-        FlightPassenger.create!(flight: @flight_2, passenger: @chris)
-        FlightPassenger.create!(flight: @flight_2, passenger: @kid)
-        FlightPassenger.create!(flight: @flight_3, passenger: @chris)
+        FlightPassenger.create!(flight: @flight_3, passenger: @adam)
+        FlightPassenger.create!(flight: @flight_4, passenger: @adam)
+
+        FlightPassenger.create!(flight: @flight_1, passenger: @abdul)
+        FlightPassenger.create!(flight: @flight_2, passenger: @abdul)
         FlightPassenger.create!(flight: @flight_4, passenger: @abdul)
 
-        expect(@airline.unique_adult_passengers).to eq([@abdul, @adam, @chris])
+        FlightPassenger.create!(flight: @flight_2, passenger: @chris)
+        FlightPassenger.create!(flight: @flight_3, passenger: @chris)
+
+        FlightPassenger.create!(flight: @flight_2, passenger: @kid)
+
+
+        expect(@airline.unique_adult_passengers).to eq([@adam, @abdul, @chris])
       end 
     end
   end
