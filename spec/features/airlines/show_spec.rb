@@ -15,7 +15,11 @@ RSpec.describe "Airline Show Page" do
     @passenger_4 = Passenger.create!(name: "John", age: 80)
     @passenger_5 = Passenger.create!(name: "Judas", age: 666) #Control
     @passenger_6 = Passenger.create!(name: "maTHUsaLA", age: 99999) #2 flights!
-    @passenger_6 = Passenger.create!(name: "maTHUsaLA", age: 99999) # duplicate passenger
+    @passenger_7 = Passenger.create!(name: "maTHUsaLA", age: 99999) # duplicate passenger
+
+    @passenger_8 = Passenger.create!(name: "maTHUsaLA", age: 8) # kids
+    @passenger_9 = Passenger.create!(name: "maTHUsaLA", age: 9) # kids
+    @passenger_10 = Passenger.create!(name: "maTHUsaLA", age: 10) # kids
 
     @flight_1.passengers << @passenger_1
     @flight_1.passengers << @passenger_2
@@ -30,14 +34,10 @@ RSpec.describe "Airline Show Page" do
 
   describe "As a visitor" do
     describe "User Story 3" do
-      it "I see a list of passengers that have flights on that airline" do
+      it "I see a list of DISTINCT passengers that have flights on that airline" do
         expect(page).to have_content(@passenger_1.name)
         expect(page).to have_content(@passenger_2.name)
         expect(page).to have_content(@passenger_6.name, count: 1)
-      end
-
-      it "I see that this list is unique (no duplicate passengers)" do
-        
       end
 
       it "I see that this list only includes adult passengers" do

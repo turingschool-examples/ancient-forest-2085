@@ -3,6 +3,6 @@ class Airline < ApplicationRecord
   has_many :passengers, through: :flights
 
   def distinct_passengers
-    passengers.distinct
+    passengers.select('DISTINCT passengers.*')
   end
 end
