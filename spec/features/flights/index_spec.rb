@@ -14,7 +14,8 @@ RSpec.describe 'Flights Index Page' do
       FlightPassenger.create!(flight: @flight_1, passenger: @passenger_2)
       FlightPassenger.create!(flight: @flight_2, passenger: @passenger_2)
       FlightPassenger.create!(flight: @flight_2, passenger: @passenger_3)
-      visit "/flights"
+      FlightPassenger.create!(flight: @flight_3, passenger: @passenger_1)
+      visit flights_path
     end
     describe 'When I visit the flights index page' do
       it "I see a list of all flight numbers, And next to each flight number I see the name of the Airline of that flight
@@ -29,6 +30,20 @@ RSpec.describe 'Flights Index Page' do
         within "#flight_info-#{@flight_2.id}" do
           expect(page).to have_no_content(@passenger_1.name)
           expect(page).to have_content(@passenger_2.name)
+        end
+      end
+    end
+
+    describe 'When I visit the flights index page' do
+      it " I see a link or button to remove a passenger from that flight next to each passenger's name When I click on that link/buttonI'm returned to the flights index pageAnd I no longer see that passenger listed under that flight,And I still see the passenger listed under the other flights they were assigned to" do
+        within "#flight_info-#{@flight_1.id}" do
+        expect(page).to have_link("Remove Passenger #{@passenger_1.name}")
+        click_link "Remove Passenger #{@passenger_1.name}"
+          expect(page).to have_no_content(@passenger_1.name)
+          expect(page).to have_content(@passenger_2.name)
+        end
+        within "#flight_info-#{@flight_3.id}" do
+          expect(page).to have_content(@passenger_1.name)
         end
       end
     end
