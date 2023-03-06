@@ -1,10 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Airline, type: :model do
-  describe 'relationships' do
-    it {should have_many :flights}
-    it {should have_many(:passengers).through(:flights)}
-  end
+RSpec.describe 'Flight Show Page' do
 
   before :each do
     @airline1 = Airline.create!(name: "Frontier")
@@ -32,7 +28,18 @@ RSpec.describe Airline, type: :model do
     PassengerFlight.create!(flight: @flight5, passenger: @passenger1)
   end
 
-  it '.show_uniq_adults' do
-    expect(@airline1.show_uniq_adults).to match([@passenger1, @passenger2, @passenger5, @passenger6])
+  it 'shows a list of adult passengers that have flights on that airline with no duplicate names' do
+    visit airline_path(@airline1)
+
+    within "#airline" do
+      expect(page).to have_content(@passenger1.name).once
+      expect(page).to have_content(@passenger2.name).once
+      expect(page).to have_content(@passenger5.name).once
+      expect(page).to have_content(@passenger6.name).once
+    end
+
+    expect(page).to_not have_content(@passenger3.name)
+    expect(page).to_not have_content(@passenger4.name)
+    expect(page).to_not have_content(@passenger7.name)
   end
 end

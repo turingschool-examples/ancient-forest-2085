@@ -29,7 +29,7 @@ RSpec.describe 'Flights Index Page' do
   end
 
   it 'lists all flight numbers, airline of that flight, and names of all passengers on that flight' do
-    visit flights_path
+    visit '/flights'
 
     within "#flight_#{@flight1.id}" do
       expect("Flight Number: #{@flight1.number}").to appear_before("Airline: #{@airline1.name}")
