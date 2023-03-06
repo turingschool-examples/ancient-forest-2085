@@ -9,6 +9,7 @@ RSpec.describe 'Flights Index Page' do
     @flight2 = @airline1.flights.create!(number: "1007", date: "05/03/24", departure_city: "Boston", arrival_city: "Honolulu")
     @flight3 = @airline1.flights.create!(number: "1035", date: "01/05/24", departure_city: "Honolulu", arrival_city: "Fiji")
     @flight4 = @airline2.flights.create!(number: "2256", date: "15/12/24", departure_city: "Big Island", arrival_city: "Honolulu")
+    @flight5 = @airline1.flights.create!(number: "1001", date: "01/01/25", departure_city: "Honolulu", arrival_city: "Boston")
     @passenger1 = Passenger.create!(name: "Dave", age: 33)
     @passenger2 = Passenger.create!(name: "Gianna", age: 29)
     @passenger3 = Passenger.create!(name: "Daisy", age: 1)
@@ -24,6 +25,7 @@ RSpec.describe 'Flights Index Page' do
     PassengerFlight.create!(flight: @flight3, passenger: @passenger5)
     PassengerFlight.create!(flight: @flight3, passenger: @passenger6)
     PassengerFlight.create!(flight: @flight4, passenger: @passenger7)
+    PassengerFlight.create!(flight: @flight5, passenger: @passenger1)
   end
 
   it 'lists all flight numbers, airline of that flight, and names of all passengers on that flight' do
@@ -52,6 +54,29 @@ RSpec.describe 'Flights Index Page' do
       expect(page).to have_content("#{@passenger7.name}")
     end
 
+    within "#flight_#{@flight5.id}" do
+      expect("Flight Number: #{@flight5.number}").to appear_before("Airline: #{@airline1.name}")
+      expect(page).to have_content("#{@passenger1.name}")
+    end
+
     expect(page).to_not have_content("#{@passenger8.name}")
+  end
+
+  it 'has a link to remove a passenger from a flight' do
+    visit flights_path
+
+    within "#flight_#{@flight1.id}" do
+      click_link "Remove #{@passenger1.name}"
+    end
+
+    expect(current_path).to eq(flights_path)
+
+    within "#flight_#{@flight1.id}" do
+      expect(page).to_not have_content("#{@passenger1.name}")
+    end
+
+    within "#flight_#{@flight5.id}" do
+      expect(page).to have_content("#{@passenger1.name}")
+    end
   end
 end
