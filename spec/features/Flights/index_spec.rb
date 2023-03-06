@@ -13,22 +13,38 @@ RSpec.describe "/flights", type: :feature do
       @mel_passenger = Passenger.create!(name: "Mel", age: 38)
       @serap_passenger = Passenger.create!(name: "Serap", age: 31)
 
-      FlightPassenger.create!(flight: @sw_flight1 passenger: @mel_passenger)
-      FlightPassenger.create!(flight: @sw_flight2 passenger: @mel_passenger)
-      FlightPassenger.create!(flight: @tk_flight3 passenger: @mel_passenger)
+      FlightPassenger.create!(flight: @sw_flight1, passenger: @mel_passenger)
+      FlightPassenger.create!(flight: @sw_flight2, passenger: @mel_passenger)
+      FlightPassenger.create!(flight: @tk_flight3, passenger: @mel_passenger)
 
-      FlightPassenger.create!(flight: @sw_flight1 passenger: @serap_passenger)
-      FlightPassenger.create!(flight: @sw_flight2 passenger: @serap_passenger)
+      FlightPassenger.create!(flight: @sw_flight1, passenger: @serap_passenger)
+      FlightPassenger.create!(flight: @sw_flight2, passenger: @serap_passenger)
+
+      visit "/flights"
     end
 
     # User Story 1
-    it "I see a list of all flight numbers & next to them I see Airline name of that flight" do 
-
+    it "I see a list of all flight numbers & next to them I see the Airline name of that flight" do 
+      expect(page).to have_content("All Flights Index Page")
+      expect(page).to have_content("Flight Number: #{@sw_flight1.number}, Airline: #{@southwest.name}")
+      expect(page).to have_content("Flight Number: #{@sw_flight2.number}, Airline: #{@southwest.name}")
+      expect(page).to have_content("Flight Number: #{@tk_flight3.number}, Airline: #{@turkish.name}")
     end
 
     # User Story 1
     it "under each flight number I see the names of all that flight's passengers" do 
-      
+      within "#flight_info-#{@sw_flight1.id}" do
+        expect(page).to have_content("Passengers on Flight:")
+        expect(page).to have_content(@mel_passenger.name)
+        expect(page).to have_content(@serap_passenger.name)
+      end
+
+      within "#flight_info-#{@tk_flight3.id}" do
+        expect(page).to have_content("Passengers on Flight:")
+        expect(page).to have_content(@mel_passenger.name)
+
+        expect(page).to_not have_content(@serap_passenger.name)
+      end
     end
   
   end
