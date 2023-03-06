@@ -11,7 +11,7 @@ RSpec.describe 'Airlines Show Page', type: :feature do
       @flight_4 = @airline_2.flights.create!(number: "1730", date: "08/06/20", departure_city: "Las Vegas", arrival_city: "Denver")
       @flight_5 = @airline_2.flights.create!(number: "1731", date: "08/07/20", departure_city: "Denver", arrival_city: "New York")
       @flight_6 = @airline_2.flights.create!(number: "1732", date: "08/08/20", departure_city: "New York", arrival_city: "Cleveland")
-      @passenger_1 = Passenger.create!(name: "Sally Peach", age: 25)
+      @passenger_1 = Passenger.create!(name: "Sally Peach", age: 26)
       @passenger_2 = Passenger.create!(name: "Tomato Jones", age: 35)
       @passenger_3 = Passenger.create!(name: "Sandy Smith", age: 45)
       @passenger_4 = Passenger.create!(name: "Sally Smith", age: 15)
@@ -40,11 +40,17 @@ RSpec.describe 'Airlines Show Page', type: :feature do
         within ".unique-adult-passengers" do
           expect(page).to have_content("Unique Adult Passenger Information")
           expect(page).to have_content("Name: #{@passenger_5.name}")
+          expect(page).to have_content("Age: #{@passenger_5.age}")
           expect(page).to have_no_content(@passenger_4.name)
           expect(page).to have_no_content(@passenger_6.name)
           expect(page).to have_no_content(@passenger_1.name)
           expect(page).to have_no_content(@passenger_2.name)
           expect(page).to have_no_content(@passenger_3.name)
+          expect(page).to have_no_content(@passenger_4.age)
+          expect(page).to have_no_content(@passenger_6.age)
+          expect(page).to have_no_content(@passenger_1.age)
+          expect(page).to have_no_content(@passenger_2.age)
+          expect(page).to have_no_content(@passenger_3.age)
         end
       end
     end
