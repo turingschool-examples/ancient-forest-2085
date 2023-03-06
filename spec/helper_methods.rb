@@ -1,4 +1,8 @@
 def load_test_data
+  Airline.destroy_all
+  Flight.destroy_all
+  Passenger.destroy_all
+  
   @southwest = Airline.create!(name: "Southwest")
   @flappy = Airline.create!(name: "Flappy Birdz")
 
@@ -28,5 +32,5 @@ def load_test_data
   @f_flight2.passengers << @passenger4
   @sw_flight3.passengers << @passenger5
   @f_flight3.passengers << @passenger6
-  
+
 end
