@@ -107,5 +107,42 @@ RSpec.describe "Flights Index Page" do
         expect(page).to_not have_content(@passenger_1.name)
       end
     end
+
+    it 'can remove a passenger from a flight' do 
+      within("#flight_#{@flight_1.id}") do 
+        expect(page).to have_content(@passenger_1.name)
+        expect(page).to have_link("Remove #{@passenger_1.name} From Flight")
+      end
+    end
+
+    it 'when clicked, returns to flight index' do 
+      within("#flight_#{@flight_1.id}") do 
+        expect(page).to have_content(@passenger_1.name)
+        click_link("Remove #{@passenger_1.name} From Flight")
+      end
+      expect(current_path).to eq(flights_path)
+    end
+
+    it 'no longer lists the passenger on that flight, but they still show on other flights' do 
+      within("#flight_#{@flight_1.id}") do 
+        expect(page).to have_content(@passenger_1.name)
+        click_link("Remove #{@passenger_1.name} From Flight")
+      end
+      expect(current_path).to eq(flights_path)
+
+      within("#flight_#{@flight_1.id}") do 
+        expect(page).to have_content(@passenger_4.name)
+        expect(page).to have_content(@passenger_2.name)
+        expect(page).to have_content(@passenger_3.name)
+        expect(page).to_not have_content(@passenger_1.name)
+      end
+
+      within("#flight_#{@flight_2.id}") do 
+        expect(page).to have_content(@passenger_1.name)
+        expect(page).to have_content(@passenger_4.name)
+        expect(page).to_not have_content(@passenger_3.name)
+        expect(page).to_not have_content(@passenger_2.name)
+      end
+    end
   end
 end
