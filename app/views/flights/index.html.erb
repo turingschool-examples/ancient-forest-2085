@@ -5,7 +5,7 @@
   <% flight.passengers.each do |passenger| %>
 
   <h4>Passengers:</h4>
-    <ul><li><%= passenger.name %> <%= link_to "Delete", "/flights", method: :delete %> <li></ul>
+    <ul><li><%= passenger.name %> <%= link_to "Delete", "/flights/#{flight.id}/passengers/#{passenger.id}", method: :delete %> <li></ul>
   <%end%>
 
 <%end%>

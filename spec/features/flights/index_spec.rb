@@ -38,9 +38,13 @@ RSpec.describe 'Flights Index Page', type: :feature do
   end
 
   it 'Next to each passengers name, I see a link or button to remove that passenger from that flight' do
-      expect(page).to have_link("Delete")
+    expect(page).to have_link("Delete")
   end
 
+  it 'When I click on that link/button, I`m returned to the flights index page, And I no longer see that passenger listed under that flight, And I still see the passenger listed under the other flights they were assigned to' do
+    first(:link, "Delete").click
 
-
+    expect(current_path).to eq("/flights")
+    expect(page).to_not have_content("Andra")
+  end
 end
