@@ -14,11 +14,15 @@ RSpec.describe "Flights Index Page" do
     @passenger_3 = Passenger.create!(name: "Luke", age: 27)
     @passenger_4 = Passenger.create!(name: "John", age: 80)
     @passenger_5 = Passenger.create!(name: "Judas", age: 666) #Control
+    @passenger_6 = Passenger.create!(name: "maTHUsaLA", age: 99999) #2 flights!
 
     @flight_1.passengers << @passenger_1
     @flight_1.passengers << @passenger_2
     @flight_2.passengers << @passenger_3
     @flight_2.passengers << @passenger_4
+
+    @flight_1.passengers << @passenger_6
+    @flight_2.passengers << @passenger_6
 
     visit flights_path
   end
@@ -61,6 +65,27 @@ RSpec.describe "Flights Index Page" do
         end
 
         expect(page).to_not have_content(@passenger_5.name)
+      end
+    end
+  end
+
+  describe "User Story 2" do
+    it "has a button to remove that passenger from that flight next to that passenger's name" do
+
+      within("#passenger_#{@passenger_6.id}_flight_#{@flight_1.id}") do
+        expect(page).to have_content(@passenger_6.name)
+        expect(page).to have_link("Remove Passenger")
+        click_link "Remove Passenger"
+      end
+      
+      expect(current_path).to eq(flights_path)
+
+      within("#flight_#{@flight_1.id}") do
+        expect(page).to_not have_content(@passenger_6.name)
+      end
+
+      within("#flight_#{@flight_2.id}") do
+        expect(page).to have_content(@passenger_6.name)
       end
     end
   end
