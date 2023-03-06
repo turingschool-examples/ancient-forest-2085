@@ -2,7 +2,7 @@ def load_test_data
   Airline.destroy_all
   Flight.destroy_all
   Passenger.destroy_all
-  
+
   @southwest = Airline.create!(name: "Southwest")
   @flappy = Airline.create!(name: "Flappy Birdz")
 
@@ -19,6 +19,7 @@ def load_test_data
   @passenger4 = Passenger.create!(name: "Maria", age: 35)
   @passenger5 = Passenger.create!(name: "Jorge", age: 14)
   @passenger6 = Passenger.create!(name: "Sofia", age: 9)
+  @passenger7 = Passenger.create!(name: "Ruth", age: 99)
 
   @sw_flight1.passengers << @passenger1
   @sw_flight1.passengers << @passenger2
