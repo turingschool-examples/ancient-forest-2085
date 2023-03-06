@@ -43,4 +43,20 @@ RSpec.describe "Airline Show Page" do
       end
     end
   end
+
+  describe 'extension' do 
+    it 'sorts the passengers by the number of flights they took on the airline, most to least' do 
+      within(".frequent_flyers") do 
+        expect("Luisa").to appear_before("Damon")
+        expect("Damon").to appear_before("Cornelius")
+        expect(page).to_not have_content("Joey")
+      end
+
+      within(".frequent_flyers") do 
+        expect(page).to have_content("Luisa Flight Count: 3")
+        expect(page).to have_content("Damon Flight Count: 2")
+        expect(page).to have_content("Cornelius Flight Count: 1")
+      end
+    end
+  end
 end
