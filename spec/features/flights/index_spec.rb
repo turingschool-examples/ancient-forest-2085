@@ -36,7 +36,15 @@ describe 'flights index page' do
       expect("Flight Number: #{@flight1.number}").to appear_before(@passenger2.name)
       expect("Flight Number: #{@flight1.number}").to appear_before(@passenger3.name)
     end
-
     expect(page).to_not have_content(@passenger4.name)
+  end
+
+  it 'each passenger has a button to remove the passenger' do
+    within ("div#passenger#{@passenger1.id}") do
+      expect(page).to have_content(@passenger1.name)
+      click_link('Remove Passenger')
+      expect(current_path).to eq(flights_path)
+    end
+    expect(page).to_not have_content(@passenger1.name)
   end
 end
