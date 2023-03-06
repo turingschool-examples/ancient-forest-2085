@@ -34,7 +34,7 @@ RSpec.describe 'Flights Index Page', type: :feature do
     # FlightPassenger.create!(flight: flight_5, passenger: april)
     # FlightPassenger.create!(flight: flight_5, passenger: andy)
 
-    visit '/flights'
+    visit flights_path
   end
 
   describe 'As a visitor' do
@@ -61,19 +61,53 @@ RSpec.describe 'Flights Index Page', type: :feature do
 
       it "under each flight number I see the names of all that flight's passengers" do
         within "ul#passengers-#{flight_1.id}" do
-          expect(page).to have_content("#{tom.name} #{april.name} #{andy.name}")
+          expect(page).to have_content("#{tom.name}")
+          expect(page).to have_content("#{april.name}")
+          expect(page).to have_content("#{andy.name}")
         end
         within "ul#passengers-#{flight_2.id}" do
-          expect(page).to have_content("#{leslie.name} #{ben.name}")
+          expect(page).to have_content("#{leslie.name}")
+          expect(page).to have_content("#{ben.name}")
         end
         within "ul#passengers-#{flight_3.id}" do
-          expect(page).to have_content("#{ron.name} #{chris.name}")
+          expect(page).to have_content("#{ron.name}")
+          expect(page).to have_content("#{chris.name}")
         end
         within "ul#passengers-#{flight_4.id}" do
-          expect(page).to have_content("#{tom.name} #{april.name} #{andy.name}")
+          expect(page).to have_content("#{tom.name}")
+          expect(page).to have_content("#{april.name}")
+          expect(page).to have_content("#{andy.name}")
         end
         within "ul#passengers-#{flight_5.id}" do
           expect(page).to have_content("#{jerry.name}")
+        end
+      end
+
+      it 'next to each passenger, I see a link or button to remove that passenger from that flight' do
+        within "ul#passengers-#{flight_1.id}" do
+          expect(page).to have_button("Remove #{tom.name}")
+          expect(page).to have_button("Remove #{april.name}")
+          expect(page).to have_button("Remove #{andy.name}")
+        end
+      end
+
+      it 'when I click to delete a passenger, I am brought back to the flights index, where I no longer see that passenger listed under that flight' do
+        within "ul#passengers-#{flight_1.id}" do
+          click_button "Remove #{tom.name}"
+        end
+
+        expect(current_path).to eq('/flights')
+
+        within "ul#passengers-#{flight_1.id}" do
+          expect(page).to_not have_content("#{tom.name}")
+          expect(page).to have_content("#{april.name}")
+          expect(page).to have_content("#{andy.name}")
+        end
+
+        within "ul#passengers-#{flight_4.id}" do
+          expect(page).to have_content("#{tom.name}")
+          expect(page).to have_content("#{april.name}")
+          expect(page).to have_content("#{andy.name}")
         end
       end
     end
