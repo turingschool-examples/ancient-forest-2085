@@ -27,7 +27,7 @@ RSpec.describe Airline, type: :model do
 
   describe "instance methods" do
     it "#uniq_passengers_list" do
-      expect(@southwest.uniq_passengers_list).to eq([@mel_passenger, @serap_passenger, @serin_passenger])
+      expect(@southwest.uniq_passengers_list.to_a).to eq([@mel_passenger, @serap_passenger, @serin_passenger])
     end
   end
 end

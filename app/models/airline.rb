@@ -4,6 +4,6 @@ class Airline < ApplicationRecord
   has_many :passengers, through: :flight_passengers
 
   def uniq_passengers_list
-    passengers.distinct
+    passengers.distinct.order(:name)
   end
 end

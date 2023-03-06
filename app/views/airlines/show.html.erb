@@ -1,6 +1,10 @@
 <h1><%= @airline.name %> Show Page</h1>
+<br>
+<h4>List of all adult passengers who have flights on this airline:</h4>
 <% @uniq_passengers.each do |passenger| %>
-  <ul>
-    <li><%= passenger.name %></li>
-  </ul>
+  <% if passenger.age >= 18 %>
+    <ul>
+      <li><%= passenger.name %></li>
+    </ul>
+  <% end %>
 <% end %>
