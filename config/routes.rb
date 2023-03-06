@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
 resources :flights, only: [:index] 
 
-delete "/flights/:id/passengers/:passenger_id", to: "passenger_flights#destroy"
+delete "/flights/:id/passengers", to: "flights#destroy"
 
 get "/airlines/:id", to: "airlines#show"
 end
