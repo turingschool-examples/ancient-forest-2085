@@ -7,6 +7,5 @@ class Passenger < ApplicationRecord
       .where("airlines.id = ? AND passengers.age >= ?", airline.id, 18)
       .select("passengers.*")
       .distinct
-  end
-  
+  end 
 end
