@@ -13,3 +13,17 @@
  *= require_tree .
  *= require_self
  */
+.flight_container {
+  padding: 10px;
+  margin: 10px;
+  border-radius: 25px;
+  border: 5px solid #2d3f1f;
+  display: inline-block;
+}
+
+body {
+  background-image: linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)), url("1.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
