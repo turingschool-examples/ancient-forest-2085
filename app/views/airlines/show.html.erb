@@ -1,0 +1,10 @@
+<h1><%= @airline.name%>'s Information Page </h1>
+<br>
+<div class ="unique-adult-passengers">
+<h2>Unique Adult Passenger Information</h2>
+<ul>
+<% @passengers.each do |p|%>
+  <li>Name: <%= p.name %></li>
+<% end %>
+</ul>
+</div>
