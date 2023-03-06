@@ -1,6 +1,14 @@
-<% @flights.each do |flight| %>
-    Flight Number: <%=  flight.number%> Airline: <%= flight.airline.name %></p>
-  <% flight.passengers.each do |passenger|%>
-    <p>Passengers: <%= passenger.name %></p>
+
+  <% @flights.each do |flight| %>
+<div id="flight-<%=flight.id%>">
+      Flight Number: <%= flight.number%> Airline: <%= flight.airline.name %></p>
+            <% flight.passengers.each do |passenger|%>
+          <% passenger.passenger_flights.each do |pass_flight|%>
+            <% if pass_flight.active? && flight.id == pass_flight.flight_id %>
+              <p> Passenger: <%= passenger.name %> </p>
+                <%= button_to "Remove #{passenger.name}", flight_passenger_path(flight, passenger), method: :patch, params: {status: :inactive } %> </p>
+              <% end %>
+        <% end %>
+    <% end %>
   <% end %>
-<% end %>
+</div>
