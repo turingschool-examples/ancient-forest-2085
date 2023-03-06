@@ -5,5 +5,6 @@ class Airline < ApplicationRecord
 
   def unique_adult_names
     passengers.where("passengers.age > 18").distinct.order(:name).pluck(:name)
+    # passengers.joins(:flight_passengers).select("passengers.*, COUNT(flight_passengers.id) AS flight_count").group("passengers.id").where("passengers.age > 18").order(flight_count: :desc).pluck(:name)
   end
 end
