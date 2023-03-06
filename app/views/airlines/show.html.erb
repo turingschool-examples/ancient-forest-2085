@@ -3,6 +3,6 @@
 <h4>Adult Passengers with Flights:</h4>
 <ol id='passengers'>
 	<% @passengers.each do |passenger| %>
-		<li><%= passenger.name %></li>
+		<li><%= passenger.name %> - Flights Taken: <%= passenger.flight_count %></li>
 	<% end %>
 </ol>
