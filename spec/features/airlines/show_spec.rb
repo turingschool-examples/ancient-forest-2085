@@ -16,15 +16,22 @@ RSpec.describe "Airlines Show Page" do
     @kid = Passenger.create!(name: "Kid", age: 5)
 
     FlightPassenger.create!(flight: @flight_1, passenger: @adam)
-    FlightPassenger.create!(flight: @flight_2, passenger: @abdul)
     FlightPassenger.create!(flight: @flight_2, passenger: @adam)
-    FlightPassenger.create!(flight: @flight_2, passenger: @chris)
-    FlightPassenger.create!(flight: @flight_2, passenger: @kid)
-    FlightPassenger.create!(flight: @flight_3, passenger: @chris)
+    FlightPassenger.create!(flight: @flight_3, passenger: @adam)
+    FlightPassenger.create!(flight: @flight_4, passenger: @adam)
+
+    FlightPassenger.create!(flight: @flight_1, passenger: @abdul)
+    FlightPassenger.create!(flight: @flight_2, passenger: @abdul)
     FlightPassenger.create!(flight: @flight_4, passenger: @abdul)
+
+    FlightPassenger.create!(flight: @flight_2, passenger: @chris)
+    FlightPassenger.create!(flight: @flight_3, passenger: @chris)
+
+    FlightPassenger.create!(flight: @flight_2, passenger: @kid)
     
     visit airline_path(@airline)
   end
+
   context 'User Story 3' do
     describe 'As a visitor' do
       describe "When I visit an airline's show page" do
@@ -34,6 +41,19 @@ RSpec.describe "Airlines Show Page" do
             expect(page).to have_content("Adam")
             expect(page).to have_content("Chris")
             expect(page).to_not have_content("Kid")
+          }
+        end
+      end
+    end
+  end
+
+  context 'User Story 4' do
+    describe 'As a visitor' do
+      describe "When I visit an airline's show page" do
+        it 'can see the list of adult passengers is sorted by number of flights each passenger has taken on the airline from most to least' do
+          within("#airline_adult_passengers") {
+            expect("Adam").to appear_before("Abdul")
+            expect("Abdul").to appear_before("Chris")
           }
         end
       end
