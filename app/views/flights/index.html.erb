@@ -6,7 +6,7 @@
       <div id="flight-<%=flight.id%>">
         <p>Passengers:</p>
         <% flight.passengers.each do |passenger| %>
-          <%= " #{passenger.name}" %>
+          <p><%= passenger.name %> <%=  %></p>
         <% end %>
       </div>
     </li>

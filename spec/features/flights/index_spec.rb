@@ -21,6 +21,7 @@ RSpec.describe Flight, type: :feature do
       flight1.flight_passengers.create!(passenger: rob)
       flight2.flight_passengers.create!(passenger: sara)
       flight3.flight_passengers.create!(passenger: rachel)
+      flight3.flight_passengers.create!(passenger: sara)
       flight4.flight_passengers.create!(passenger: gina)
 
       visit flights_path
@@ -44,7 +45,8 @@ RSpec.describe Flight, type: :feature do
 
         it "And under each flight number I see the names of all that flight's passengers" do
           within "div#flight-#{flight1.id}" do
-            expect(page).to have_content("Bob Rob")
+            expect(page).to have_content("Bob")
+            expect(page).to have_content("Rob")
           end
 
           within "div#flight-#{flight2.id}" do
@@ -53,10 +55,54 @@ RSpec.describe Flight, type: :feature do
 
           within "div#flight-#{flight3.id}" do
             expect(page).to have_content("Rachel")
+            expect(page).to have_content("Sara")
           end
 
           within "div#flight-#{flight4.id}" do
             expect(page).to have_content("Gina")
+          end
+        end
+
+        xit "Next to each passengers name I see a link to remove that passenger from that flight" do
+          within "div#flight-#{flight1.id}" do
+            expect(page).to have_link("Remove")
+          end
+
+          within "div#flight-#{flight2.id}" do
+            expect(page).to have_link("Remove")
+          end
+
+          within "div#flight-#{flight3.id}" do
+            expect(page).to have_link("Remove")
+          end
+
+          within "div#flight-#{flight4.id}" do
+            expect(page).to have_link("Remove")
+          end
+        end
+
+        xit "When I click on that link I'm returned to the flights index page" do
+          within "div#flight-#{flight2.id}" do
+            click_link "Remove"
+          end
+
+          expect(current_path).to eq(flights_path)
+        end
+
+        xit "And I no longer see that passenger listed under that flight, nd I still see the passenger listed under the other flights they were assigned to" do
+          within "div#flight-#{flight2.id}" do
+            click_link "Remove"
+          end
+
+          expect(current_path).to eq(flights_path)
+
+          within "div#flight-#{flight2.id}" do
+            expect(page).to_not have_content("Sara")
+          end
+
+          within "div#flight-#{flight3.id}" do
+            expect(page).to have_content("Rachel")
+            expect(page).to have_content("Sara")
           end
         end
       end
