@@ -12,7 +12,7 @@ RSpec.describe '@airline.flightss Index' do
 		@joe = Passenger.create!(name: "Joe", age: 36)
 		@jim = Passenger.create!(name: "Jim", age: 37)
 		@jane = Passenger.create!(name: "Jane", age: 16)	
-		@john = Passenger.create!(name: "Jane", age: 16)	
+		@john = Passenger.create!(name: "John", age: 16)	
 
 		@passflight1 = PassengerFlight.create!(passenger: @brad, flight: @one)
 		@passflight2 = PassengerFlight.create!(passenger: @jeff, flight: @one)
@@ -28,11 +28,15 @@ RSpec.describe '@airline.flightss Index' do
 
 	describe "As a visitor, when I visit an airline's show page" do
 		it "I see a unique list of passengers that have flights from that airline" do
-			save_and_open_page
 			expect(page).to have_content("Brad", count: 1)
 			expect(page).to have_content("Jeff", count: 1)
 			expect(page).to have_content("Joe", count: 1)
 			expect(page).to have_content("Jim", count: 1)
+		end
+
+		it "I see that this list only includes adult passengers" do
+			expect(page).to_not have_content("Jane")
+			expect(page).to_not have_content("John")			
 		end
 	end
 end

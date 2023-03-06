@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe '@airline.flightss Index' do
+RSpec.describe 'Flights Index' do
 	before (:each) do
 		@sky = Airline.create!(name: "Sky High")
 		@rickety = Airline.create!(name: "Rickety Airlines")
