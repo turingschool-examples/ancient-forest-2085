@@ -33,5 +33,7 @@ def load_test_data
   @f_flight2.passengers << @passenger4
   @sw_flight3.passengers << @passenger5
   @f_flight3.passengers << @passenger6
+  @sw_flight3.passengers << @passenger4
+
 
 end

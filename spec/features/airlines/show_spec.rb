@@ -10,7 +10,7 @@ RSpec.describe 'Airlines Show Page' do
     it 'lists all the unique names of adult passengers that have flights from that airline' do
       expect(page).to have_content(@passenger2.name).once
       expect(page).to have_content(@passenger4.name).once
-      
+
       expect(page).to_not have_content(@passenger1.name)
       expect(page).to_not have_content(@passenger3.name)
       expect(page).to_not have_content(@passenger5.name)
