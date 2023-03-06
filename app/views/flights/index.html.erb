@@ -9,7 +9,7 @@
   <ul>
     <% flight.passengers.each do |passenger| %></li>
         <li><%= passenger.name %></li> 
-        <p><%= link_to "Delete #{passenger.name}", "/passengers/#{passenger.id}", method: :delete %></p>
+        <p><%= link_to "Delete #{passenger.name}", "/flights/#{flight.id}/passengers/#{passenger.id}", method: :delete %></p>
     <% end %>
   </ul>
 </div>
@@ -18,5 +18,5 @@
 <%# <h3> Passengers: </h3> %>
 <%# <% @flight_passengers.each do |passenger| %> 
   <%# <p><%= passenger.name %></p>
-  <%# <p><%= link_to "Delete #{passenger.name}", "/flights", method: :delete %></p> %>
+  <%# <p><%= link_to "Delete #{passenger.name}", "/flights", method: :delete %></p>
 <%# <% end %> 

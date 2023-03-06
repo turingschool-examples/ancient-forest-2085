@@ -43,11 +43,10 @@ RSpec.describe 'Flights Index Page' do
           expect(page).to_not have_content("Joe")
           expect(page).to_not have_content("Sally")
         end
-        save_and_open_page
       end
 
       # User Story 2, Remove a Passenger from a Flight
-      xit "Next to each passengers name, I see a link to remove them from the flight" do
+      it "Next to each passengers name, I see a link to remove them from the flight" do
         expect(page).to have_link("Delete #{passenger1.name}")
         click_on "Delete #{passenger1.name}"
         expect(current_path).to eq("/flights")
