@@ -8,7 +8,7 @@ RSpec.describe 'Airline Show Page' do
       let!(:airline2) { Airline.create!(name: "Southwest") }
       let!(:flight1) { Flight.create!(number: 1727, date: "08/03/20", departure_city: "Denver", arrival_city: "Reno", airline_id: airline1.id) }
       let!(:flight2) { Flight.create!(number: 1728, date: "08/07/20", departure_city: "Denver", arrival_city: "Las Vegas", airline_id: airline2.id) }
-      let!(:passenger1) { Passenger.create!(name: "Bob", age: 39) }
+      let!(:passenger1) { Passenger.create!(name: "Bob", age: 15) }
       let!(:passenger2) { Passenger.create!(name: "Joe", age: 28) }
       let!(:passenger3) { Passenger.create!(name: "Sally", age: 23) }
       let!(:passenger4) { Passenger.create!(name: "John", age: 41) }
@@ -25,19 +25,10 @@ RSpec.describe 'Airline Show Page' do
       end
 
       # User Story 3, Airline's Passengers
-      
-      # As a visitor
-      # When I visit an airline's show page
-      # Then I see a list of passengers that have flights on that airline
-      # And I see that this list is unique (no duplicate passengers)
-      # And I see that this list only includes adult passengers
-      
-      # (Note: an adult is anyone with age greater than or equal to 18)
-
       describe "Then I see a list of passengers that have flights on that airline" do
         describe "And I see that this list is unique (no duplicate passengers)" do
           it "And I see that this list only includes adult passengers" do
-            expect(page).to have_content("Passengers:\nBob\nJoe\nSally")
+            expect(page).to have_content("Passengers:\nJoe\nSally")
           end
         end
       end
