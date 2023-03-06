@@ -41,7 +41,6 @@ RSpec.describe 'Airlines Show Page' do
     it 'I see that the list of adults id sorted by the number of flights each passenger has taken on that airline from most to least' do
       visit "/airlines/#{airline_1.id}"
 
-      save_and_open_page
       expect("Bob").to appear_before("Sally")
       expect("Sally").to appear_before("Joe")
     end
