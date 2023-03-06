@@ -19,19 +19,19 @@ describe 'flights index page' do
     FlightPassenger.create!(flight_id: @flight1.id, passenger_id: @passenger1.id)
     FlightPassenger.create!(flight_id: @flight1.id, passenger_id: @passenger2.id)
     FlightPassenger.create!(flight_id: @flight1.id, passenger_id: @passenger3.id)
-
+    visit flights_path
   end
 
   it 'has a list of all flight numbers and the airline of that flight' do   #USER STORY 1
-    expect(page).to have_content("Flight Number: #{@flight1.number}, Airline: #{@flight1.airline}")
-    expect(page).to have_content("Flight Number: #{@flight2.number}, Airline: #{@flight2.airline}")
-    expect(page).to have_content("Flight Number: #{@flight3.number}, Airline: #{@flight3.airline}")
-    expect(page).to have_content("Flight Number: #{@flight4.number}, Airline: #{@flight4.airline}")
-    expect(page).to have_content("Flight Number: #{@flight5.number}, Airline: #{@flight5.airline}")
+    expect(page).to have_content("Flight Number: #{@flight1.number}, Airline: #{@flight1.airline.name}")
+    expect(page).to have_content("Flight Number: #{@flight2.number}, Airline: #{@flight2.airline.name}")
+    expect(page).to have_content("Flight Number: #{@flight3.number}, Airline: #{@flight3.airline.name}")
+    expect(page).to have_content("Flight Number: #{@flight4.number}, Airline: #{@flight4.airline.name}")
+    expect(page).to have_content("Flight Number: #{@flight5.number}, Airline: #{@flight5.airline.name}")
   end
 
   it 'under each flight number I see the names of that flight\'s passengers' do
-    within ("div#flight#{flight1.id}") do
+    within ("div#flight#{@flight1.id}") do
       expect("Flight Number: #{@flight1.number}").to appear_before(@passenger1.name)
       expect("Flight Number: #{@flight1.number}").to appear_before(@passenger2.name)
       expect("Flight Number: #{@flight1.number}").to appear_before(@passenger3.name)
