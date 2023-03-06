@@ -26,8 +26,13 @@ describe "As a visitor when I visit the flights index page" do
     @p6 = @f4.passengers.create!(name: "Sam", age: 25)
     @p7 = @f4.passengers.create!(name: "Billy", age: 25)
     @p8 = @f6.passengers.create!(name: "Meghan", age: 30)
+
+    FlightPassenger.create!(flight: @f5, passenger: @p1)
+    FlightPassenger.create!(flight: @f5, passenger: @p2)
+
     visit '/flights'
   end
+
   it 'I see a list of all flight numbers' do
     within "#flight-#{@f1.number}" do
       expect(page).to have_content("#{@f1.number}")
@@ -101,19 +106,47 @@ describe "As a visitor when I visit the flights index page" do
     end
 
     within "#flight-#{@f5.number}" do
-      save_and_open_page
-      expect(page).to have_no_content(@p1.name)
-      expect(page).to have_no_content(@p2.name)
-      expect(page).to have_no_content(@p3.name)
-      expect(page).to have_no_content(@p4.name)
-      expect(page).to have_no_content(@p5.name)
-      expect(page).to have_no_content(@p6.name)
-      expect(page).to have_no_content(@p7.name)
-      expect(page).to have_no_content(@p8.name)
+      expect("#{@f5.number} - #{@delta.name}").to appear_before(@p1.name)
+      expect("#{@f5.number} - #{@delta.name}").to appear_before(@p2.name)
+
     end
 
     within "#flight-#{@f6.number}" do
       expect("#{@f6.number} - #{@delta.name}").to appear_before(@p8.name)
+    end
+  end
+
+  describe "Removing a passenger from a flight" do
+    it "next to each passenger's name, I see a link or button to remove that passenger from that flight" do
+      within "#flight-#{@f1.number}" do
+        within "#passenger-#{@p1.id}" do
+          expect(page).to have_button("Remove Passenger")
+        end
+
+        within "#passenger-#{@p2.id}" do
+          expect(page).to have_button("Remove Passenger")
+        end
+      end
+    end
+
+    it "When I click on that link/button, I'm returned to the flights index page, I no longer see that passenger listed under that flight, I still see the passenger listed under the other flights they were assigned to" do
+      within "#flight-#{@f1.number}" do
+        within "#passenger-#{@p1.id}" do
+          click_button "Remove Passenger"
+        end
+      end
+
+      expect(page).to have_current_path(flights_path)
+      expect(page).to have_content("Flight passenger was successfully destroyed.")
+
+      within "#flight-#{@f1.number}" do
+        expect(page).to have_no_content(@p1.name)
+      end
+
+      within "#flight-#{@f5.number}" do
+        expect(page).to have_content(@p1.name)
+      end
+
     end
   end
 end
