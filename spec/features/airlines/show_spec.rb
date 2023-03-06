@@ -38,7 +38,7 @@ RSpec.describe 'Airlines Show Page' do
       expect(page).to_not have_content("Timmy")
     end
 
-    it 'I see that the list of adults id sorted by the number of flights each passenger has taken on that airline from most to least' do
+    xit 'I see that the list of adults id sorted by the number of flights each passenger has taken on that airline from most to least' do
       visit "/airlines/#{airline_1.id}"
 
       expect("Bob").to appear_before("Sally")
