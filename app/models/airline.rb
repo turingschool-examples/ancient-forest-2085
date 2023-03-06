@@ -4,6 +4,6 @@ class Airline < ApplicationRecord
   has_many :passengers, through: :passenger_flights
 
   def adult_passengers
-    binding.pry
+    passengers.distinct.where("age > 18").pluck(:name)
   end
 end
