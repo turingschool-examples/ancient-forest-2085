@@ -26,7 +26,7 @@ RSpec.describe 'The Flights Index Page' do
     visit "/flights"
   end
   describe 'User Story 1' do
-    it "a visitor of the flights index page sees a list of all flight numbers, and shows next to each flight number the name of the Airline of that flight" do
+    it "a visitor of the flights index page sees a list of all flight numbers, and next to each flight number shows the name of the Airline of that flight" do
       expect(page).to have_content("Flight #222 - Airline: Frontier")
       expect(page).to have_content("Flight #223 - Airline: Frontier")
       expect(page).to have_content("Flight #386 - Airline: Southwest")

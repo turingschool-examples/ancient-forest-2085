@@ -1,10 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Airline, type: :model do
-  describe 'relationships' do
-    it {should have_many :flights}
-  end
-
+RSpec.describe 'The Airline Show Page' do
   before(:each) do
     @airline_1 = Airline.create!(name: "Frontier")
 
@@ -23,13 +19,20 @@ RSpec.describe Airline, type: :model do
     @fp_4 = FlightPassenger.create!(flight_id: @flight_2.id, passenger_id: @passenger_4.id)
     @fp_5 = FlightPassenger.create!(flight_id: @flight_2.id, passenger_id: @passenger_5.id)
     @fp_6 = FlightPassenger.create!(flight_id: @flight_2.id, passenger_id: @passenger_1.id)
+
+    visit airline_path(@airline_1.id)
   end
 
-  describe '#instance_methods' do
-    describe '#adult_passengers' do
-      it 'returns a unique list of passengers over or equal to the age of 18' do
-        expect(@airline_1.adult_passengers).to contain_exactly(@passenger_1.name, @passenger_2.name, @passenger_4.name)
-      end
+  describe 'User Story 3' do
+    it 'shows the visitor a list of passengers that have flights on that airline
+    they see that this list is unique, and that this list only includes adult passengers' do
+      within("#passengers_on_airline") {
+        expect(page).to have_content("Dawson")
+        expect(page).to have_content("Tim")
+        expect(page).to have_content("Matt")
+        expect(page).to_not have_content("Sally")
+        expect(page).to_not have_content("Jennifer")
+      }
     end
   end
 end
