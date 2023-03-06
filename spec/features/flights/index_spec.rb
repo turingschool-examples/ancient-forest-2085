@@ -25,12 +25,25 @@ RSpec.describe 'Flights Index Page' do
       end
 
       # User Story 1, Flights Index Page
-      xit "I see a list of all flight numbers" do
-        expect(page).to have_content("Flight Number: 1727, Name: Frontier")
+      it "I see a list of all flight numbers" do
+        within "#flight-#{flight1.number}" do
+          expect(page).to have_content("Flight Number: 1727, Name: Frontier")
+          expect(page).to have_content("Bob")
+          expect(page).to have_content("Joe")
+          expect(page).to have_content("Sally")
+          expect(page).to_not have_content("John")
+          expect(page).to_not have_content("Marsha")
+        end
+
+        within "#flight-#{flight2.number}" do
+          expect(page).to have_content("Flight Number: 1728, Name: Southwest")
+          expect(page).to have_content("John")
+          expect(page).to have_content("Marsha")
+          expect(page).to_not have_content("Bob")
+          expect(page).to_not have_content("Joe")
+          expect(page).to_not have_content("Sally")
+        end
         save_and_open_page
-        expect(page).to have_content("Passengers: Bob Joe Sally")
-        expect(page).to have_content("Flight Number: 1728, Name: Southwest")
-        expect(page).to have_content("Passengers: John Marsha")
       end
 
       # User Story 2, Remove a Passenger from a Flight
