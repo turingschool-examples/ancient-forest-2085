@@ -30,8 +30,11 @@ RSpec.describe Passenger, type: :model do
 
     describe "#adult_passengers" do
       it "returns a unique list of all passengers 18 or older" do
+        all_frontier_passengers = [@andre, @diana, @joe]
         expected_passengers = [@andre, @diana]
+
         expect(Passenger.adult_passengers(@frontier)).to match_array(expected_passengers)
+        expect(Passenger.adult_passengers(@frontier)).to_not match_array(all_frontier_passengers)
       end
     end
   end
