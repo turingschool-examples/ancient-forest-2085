@@ -8,6 +8,6 @@ class Airline < ApplicationRecord
     passengers.select("passengers.*, count(flight_passengers.id) as num_flights")
       .where("age >= ?", 18)
       .group(:id)
-      .order("num_flights desc")
+      .order("num_flights desc, name asc")
   end
 end
