@@ -35,7 +35,7 @@ RSpec.describe "Airline Show Page" do
 
   describe 'user_story_3, when I visit an airline show page' do 
     it 'has a unique list of passengers that have flights on that airline(only adults)' do 
-      within(".airline_passengers") do 
+      within(".frequent_flyers") do 
         expect(page).to have_content("Damon", count: 1)
         expect(page).to have_content("Cornelius", count: 1) 
         expect(page).to have_content("Luisa", count: 1)
@@ -50,6 +50,12 @@ RSpec.describe "Airline Show Page" do
         expect("Luisa").to appear_before("Damon")
         expect("Damon").to appear_before("Cornelius")
         expect(page).to_not have_content("Joey")
+      end
+
+      within("#passenger_#{@passenger_4.id}") do 
+        expect(page).to have_content("Luisa Flight Count: 3")
+        expect(page).to_not have_content("Luisa Flight Count: 2")
+        expect(page).to_not have_content("Damon Flight Count: 2")
       end
 
       within(".frequent_flyers") do 
