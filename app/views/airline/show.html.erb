@@ -1,0 +1,5 @@
+<p>All Passengers</p>
+<ul><% @airline.find_all_passengers.each do |passenger| %>
+  <li><%= passenger.name %></li>
+  <% end %>
+</ul>
