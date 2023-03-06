@@ -35,14 +35,17 @@ RSpec.describe 'Airlines Show Page', type: :feature do
       it "Then I see a list of passengers that have flights on that airline
       And I see that this list is unique (no duplicate passengers)
       And I see that this list only includes adult passengers" do
-        expect(page).to have_no_content(@airline.name)
-        expect(page).to have_content(@airline_2.name)
-        expect(page).to have_content(@passenger_5.name)
-        expect(page).to have_no_content(@passenger_4.name)
-        expect(page).to have_no_content(@passenger_6.name)
-        expect(page).to have_no_content(@passenger_1.name)
-        expect(page).to have_no_content(@passenger_2.name)
-        expect(page).to have_no_content(@passenger_3.name)
+        expect(page).to have_no_content("#{@airline.name}'s Information Page")
+        expect(page).to have_content("#{@airline_2.name}'s Information Page")
+        within ".unique-adult-passengers" do
+          expect(page).to have_content("Unique Adult Passenger Information")
+          expect(page).to have_content("Name: #{@passenger_5.name}")
+          expect(page).to have_no_content(@passenger_4.name)
+          expect(page).to have_no_content(@passenger_6.name)
+          expect(page).to have_no_content(@passenger_1.name)
+          expect(page).to have_no_content(@passenger_2.name)
+          expect(page).to have_no_content(@passenger_3.name)
+        end
       end
     end
   end
