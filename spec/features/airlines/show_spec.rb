@@ -29,6 +29,7 @@ RSpec.describe 'Airline Show Page' do
         describe "And I see that this list is unique (no duplicate passengers)" do
           it "And I see that this list only includes adult passengers" do
             expect(page).to have_content("Passengers:\nJoe\nSally")
+            expect(page).to_not have_content("Passengers:\nBob")
           end
         end
       end

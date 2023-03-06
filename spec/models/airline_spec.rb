@@ -28,6 +28,7 @@ RSpec.describe Airline, type: :model do
 
     it "should have unique passengers 18 or older" do
       expect(airline1.unique_passengers).to eq(["Joe", "Sally"])
+      expect(airline1.unique_passengers).to_not eq(["Bob"])
     end
   end
 end
