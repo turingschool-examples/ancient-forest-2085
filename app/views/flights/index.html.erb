@@ -1,0 +1,13 @@
+<% @flights.each do |flight| %>
+  <p><%= flight.number %></p>
+
+  <% flight.passengers.each do |passenger|%>
+    <p> <%= passenger.name %></p>
+    <p> <%= button_to "Remove Passenger #{passenger.name}", "/flights/#{flight.id}", method: :delete, local: true, params: {passenger_id: passenger.id } %> </p>
+  <%end%>
+<%end%>
+
+<% @airlines.each do |airline| %>
+  <p><%= airline.name %> </p>
+<%end%>
+
