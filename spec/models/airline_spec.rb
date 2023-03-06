@@ -24,7 +24,6 @@ RSpec.describe Airline, type: :model do
       FlightPassenger.create!(flight_id: @flight1.id, passenger_id: @passenger3.id)
       FlightPassenger.create!(flight_id: @flight2.id, passenger_id: @passenger4.id)
       FlightPassenger.create!(flight_id: @flight3.id, passenger_id: @passenger1.id)
-
     end
     it 'should have a list of all adult(18 or older) passengers on a flight' do
       expect(@airline1.adult_passengers).to contain_exactly(@passenger1, @passenger2)
