@@ -16,9 +16,9 @@ flight_4 = united.flights.create!(number: 1726, date: '08/30/22', departure_city
 flight_5 = frontier.flights.create!(number: 1690, date: '08/30/22', departure_city: 'Portland', arrival_city: 'San Diego')
 
 passenger_1 = Passenger.create!(name: 'Joe', age: 30)
-passenger_2 = Passenger.create!(name: 'Mary', age: 25)
+passenger_2 = Passenger.create!(name: 'Mary', age: 17)
 passenger_3 = Passenger.create!(name: 'John', age: 25)
-passenger_4 = Passenger.create!(name: 'Michael', age: 25)
+passenger_4 = Passenger.create!(name: 'Michael', age: 16)
 passenger_5 = Passenger.create!(name: 'Henry', age: 25)
 passenger_6 = Passenger.create!(name: 'David', age: 25)
 passenger_7 = Passenger.create!(name: 'Valerie', age: 25)
