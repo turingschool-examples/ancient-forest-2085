@@ -15,8 +15,8 @@ describe "As a visitor when I visit the flights index page" do
     @f2 = @frontier.flights.create!(number: 6, date: x, departure_city: "Denver", arrival_city: "San Diego")
     @f3 = @united.flights.create!(number: 5, date: w, departure_city: "Denver", arrival_city: "Los Angeles")
     @f4 = @united.flights.create!(number: 7, date: y, departure_city: "Denver", arrival_city: "San Diego")
-    @f5 = @frontier.flights.create!(number: 9, date: y, departure_city: "Denver", arrival_city: "Los Angeles")
-    @f6 = @frontier.flights.create!(number: 3, date: z, departure_city: "Denver", arrival_city: "San Diego")
+    @f5 = @delta.flights.create!(number: 9, date: y, departure_city: "Denver", arrival_city: "Los Angeles")
+    @f6 = @delta.flights.create!(number: 3, date: z, departure_city: "Denver", arrival_city: "San Diego")
 
     @p1 = @f1.passengers.create!(name: "Joe", age: 27)
     @p2 = @f1.passengers.create!(name: "Tori", age: 23)
@@ -26,7 +26,7 @@ describe "As a visitor when I visit the flights index page" do
     @p6 = @f4.passengers.create!(name: "Sam", age: 25)
     @p7 = @f4.passengers.create!(name: "Billy", age: 25)
     @p8 = @f6.passengers.create!(name: "Meghan", age: 30)
-
+    visit '/flights'
   end
   it 'I see a list of all flight numbers' do
     within "#flight-#{@f1.number}" do
@@ -60,7 +60,7 @@ describe "As a visitor when I visit the flights index page" do
     end
 
     within "#flight-#{@f2.number}" do
-      expect(page).to have_content("#{@f2.number} - #{@fronter.name}")
+      expect(page).to have_content("#{@f2.number} - #{@frontier.name}")
     end
 
     within "#flight-#{@f3.number}" do
@@ -82,30 +82,38 @@ describe "As a visitor when I visit the flights index page" do
 
   it "under each flight number I see the names of all that flight's passengers" do
     within "#flight-#{@f1.number}" do
-      expect(@p1.name).to come_after("#{@f1.number} - #{@frontier.name}")
-      expect(@p2.name).to come_after("#{@f1.number} - #{@frontier.name}")
+      expect("#{@f1.number} - #{@frontier.name}").to appear_before(@p1.name)
+      expect("#{@f1.number} - #{@frontier.name}").to appear_before(@p2.name)
     end
 
     within "#flight-#{@f2.number}" do
-      expect(@p3.name).to come_after("#{@f1.number} - #{@frontier.name}")
-      expect(@p4.name).to come_after("#{@f1.number} - #{@frontier.name}")   
+      expect("#{@f2.number} - #{@frontier.name}").to appear_before(@p3.name)
+      expect("#{@f2.number} - #{@frontier.name}").to appear_before(@p4.name)   
     end
 
     within "#flight-#{@f3.number}" do
-      expect(@p5.name).to come_after("#{@f1.number} - #{@frontier.name}")
+      expect("#{@f3.number} - #{@united.name}").to appear_before(@p5.name)
     end
 
     within "#flight-#{@f4.number}" do
-      expect(@p6.name).to come_after("#{@f1.number} - #{@frontier.name}")
-      expect(@p7.name).to come_after("#{@f1.number} - #{@frontier.name}")   
+      expect("#{@f4.number} - #{@united.name}").to appear_before(@p6.name)
+      expect("#{@f4.number} - #{@united.name}").to appear_before(@p7.name)   
     end
 
     within "#flight-#{@f5.number}" do
-      expect(page).to have_no_content(@p1.name, @p2.name, @p3.name, @p4.name, @p5.name, @p6.name, @p7.name, @p8.name)
+      save_and_open_page
+      expect(page).to have_no_content(@p1.name)
+      expect(page).to have_no_content(@p2.name)
+      expect(page).to have_no_content(@p3.name)
+      expect(page).to have_no_content(@p4.name)
+      expect(page).to have_no_content(@p5.name)
+      expect(page).to have_no_content(@p6.name)
+      expect(page).to have_no_content(@p7.name)
+      expect(page).to have_no_content(@p8.name)
     end
 
     within "#flight-#{@f6.number}" do
-      expect(@p8.name).to come_after("#{@f1.number} - #{@frontier.name}")
+      expect("#{@f6.number} - #{@delta.name}").to appear_before(@p8.name)
     end
   end
 end
