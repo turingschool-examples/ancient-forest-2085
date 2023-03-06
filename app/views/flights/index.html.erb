@@ -8,6 +8,7 @@
       <p><b>Passengers:</b></p>
         <% flight.passengers.each do |passenger| %>
           <p><%= passenger.name %></p>
+          <%= button_to "Remove #{passenger.name}", flight_passenger_path(flight, passenger), method: "delete" %>
         <% end %>
     </div>
   <% end %>
