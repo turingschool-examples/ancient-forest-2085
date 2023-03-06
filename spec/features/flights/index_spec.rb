@@ -19,12 +19,12 @@ RSpec.describe 'Flights Index Page' do
         PassengerFlight.create(passenger_id: @passenger_3.id, flight_id: @flight_2.id)
         PassengerFlight.create(passenger_id: @passenger_4.id, flight_id: @flight_2.id)
         
-        visit flight_index_path
+        visit flights_path
       end
 
       it 'sees a list of all flight numbers, sees the name of the Airline of that flight next to each flight number and each flights passengers ' do
-        within("section#flight_details-#{@flight_1.id}") do
-          expect(page).to have_content("Flight Details: #{@flight_1.name} - #{@flight_1.number}")
+        within("div#flight_details-#{@flight_1.id}") do
+          expect(page).to have_content("Flight Details: #{@flight_1.name} - ##{@flight_1.number}")
           expect(page).to have_content(@passenger_1.name)
           expect(page).to have_content(@passenger_2.name)
         end
