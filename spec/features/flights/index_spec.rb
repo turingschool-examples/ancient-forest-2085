@@ -1,8 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe 'Flights Index Page', type: :feature do
+
   let!(:united) { Airline.create!(name: 'United Airlines') }
   let!(:southwest) { Airline.create!(name: 'Southwest Airlines') }
+
   let!(:flight_1) { united.flights.create!(number: "1234", date: "08/03/20", departure_city: "Denver", arrival_city: "Reno") }
   let!(:flight_2) { united.flights.create!(number: "2345", date: "08/04/20", departure_city: "Denver", arrival_city: "Salt Lake City") }
   let!(:flight_3) { united.flights.create!(number: "3456", date: "08/05/20", departure_city: "Denver", arrival_city: "New York") }
@@ -30,9 +32,6 @@ RSpec.describe 'Flights Index Page', type: :feature do
     FlightPassenger.create!(flight: flight_4, passenger: april)
     FlightPassenger.create!(flight: flight_4, passenger: andy)
     FlightPassenger.create!(flight: flight_5, passenger: jerry)
-    # FlightPassenger.create!(flight: flight_5, passenger: tom)
-    # FlightPassenger.create!(flight: flight_5, passenger: april)
-    # FlightPassenger.create!(flight: flight_5, passenger: andy)
 
     visit flights_path
   end
