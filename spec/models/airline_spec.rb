@@ -12,7 +12,7 @@ RSpec.describe Airline, type: :model do
 
   describe '#Instance Methods' do
     describe '#unique_adult_passengers' do
-      it 'returns all unique adult passengers (age >= 18), sorted from most flights on airline to least' do
+      before(:each) do
         @airline = Airline.create!(name: 'Emirates')
 
         @flight_1 = Flight.create!(airline: @airline, number: "1111", date: "03/06/23", departure_city: 'Denver', arrival_city: 'Charlotte')
@@ -39,10 +39,17 @@ RSpec.describe Airline, type: :model do
         FlightPassenger.create!(flight: @flight_3, passenger: @chris)
 
         FlightPassenger.create!(flight: @flight_2, passenger: @kid)
+      end
 
-
+      it 'returns all unique adult passengers (age >= 18), sorted from most flights on airline to least' do
         expect(@airline.unique_adult_passengers).to eq([@adam, @abdul, @chris])
-      end 
+      end
+      
+      it 'will secondarily sort alphabetically by name if there are equal numbers of flights between passengers' do
+        FlightPassenger.create!(flight: @flight_2, passenger: @abdul)
+
+        expect(@airline.unique_adult_passengers).to eq([@abdul, @adam, @chris])
+      end
     end
   end
 end
