@@ -1,0 +1,9 @@
+<h2>Welcome to Field Trip Final IC</h2>
+
+<p><%= link_to "Flight's Index Page", flights_path %></p>
+<p><%= link_to "Airline's Index Page", airlines_path %></p>
+
+
+<% @airlines.each do |airline| %>
+	<p><%= link_to "#{airline.name}'s Show Page", airline_path(airline) %></p>
+<% end %>

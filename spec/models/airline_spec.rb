@@ -38,7 +38,6 @@ RSpec.describe Airline, type: :model do
 		FlightPassenger.create!(flight: flight_3, passenger: passenger_1)
 		FlightPassenger.create!(flight: flight_3, passenger: passenger_3)
 		FlightPassenger.create!(flight: flight_3, passenger: passenger_4)
-		FlightPassenger.create!(flight: flight_3, passenger: passenger_5)
 
 		FlightPassenger.create!(flight: flight_4, passenger: passenger_3)
 
@@ -52,12 +51,10 @@ RSpec.describe Airline, type: :model do
 
 		it '#sorted_unique_adult_passengers' do
 			expect(united.sorted_unique_adult_passengers).to eq([passenger_3, passenger_1, passenger_5, passenger_6])
-
-			FlightPassenger.create!(flight: flight_2, passenger: passenger_6)
-			FlightPassenger.create!(flight: flight_3, passenger: passenger_6)
 			
-			expect(united.sorted_unique_adult_passengers).to eq([passenger_3, passenger_1, passenger_6, passenger_5])
+			FlightPassenger.create!(flight: flight_3, passenger: passenger_6)
 
+			expect(united.sorted_unique_adult_passengers).to eq([passenger_3, passenger_1, passenger_6, passenger_5])
 		end
 	end
 end
